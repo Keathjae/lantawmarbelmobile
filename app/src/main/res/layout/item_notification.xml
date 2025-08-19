@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/notificationCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Unread Indicator -->
+        <View
+            android:id="@+id/unreadIndicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/unread_indicator"
+            android:visibility="gone" />
+
+        <!-- Notification Icon -->
+        <ImageView
+            android:id="@+id/notificationIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_check_circle"
+            app:tint="#27AE60"
+            android:background="@drawable/notification_icon_bg"
+            android:padding="8dp" />
+
+        <!-- Content Layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/notificationIcon"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <!-- Notification Message -->
+            <TextView
+                android:id="@+id/notificationMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Booking BK-123456789 confirmed for Juan Dela Cruz"
+                android:textSize="14sp"
+                android:textColor="#2C3E50"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Booking ID -->
+            <TextView
+                android:id="@+id/notificationBookingId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Booking ID: BK-123456789"
+                android:textSize="12sp"
+                android:textColor="#7F8C8D"
+                android:layout_marginTop="4dp" />
+
+            <!-- Date -->
+            <TextView
+                android:id="@+id/notificationDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dec 25, 2024 14:30"
+                android:textSize="12sp"
+                android:textColor="#95A5A6"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
