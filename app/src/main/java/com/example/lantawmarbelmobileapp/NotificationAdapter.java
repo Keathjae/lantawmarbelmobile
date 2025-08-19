@@ -50,6 +50,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.bookingIdText.setText("Booking ID: " + notification.bookingId);
 
         // Set notification icon based on type
+        // 
         switch (notification.type) {
             case "booking_confirmation":
                 holder.iconImage.setImageResource(R.drawable.check_circle_ic);
