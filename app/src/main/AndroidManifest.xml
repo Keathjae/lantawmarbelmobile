@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Internet / Network -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -13,88 +19,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LantawMarbelMobileApp">
+        <activity
+            android:name=".QrScanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" /> <!-- Launcher Activity -->
+        <activity
+            android:name=".CommonMainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <!-- Regular Activities -->
-        <activity
-            android:name=".Go_to_daytour"
-            android:exported="false" />
-        <activity
-            android:name=".Go_To_OrderSummaryActivity"
-            android:exported="false" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Other Activities -->
         <activity
             android:name=".Go_To_List_of_bookings"
-            android:exported="false" />
-        <activity
-            android:name=".Go_To_Inquiry"
-            android:exported="false" />
-        <activity
-            android:name=".Go_To_Settings"
             android:exported="false" />
         <activity
             android:name=".Go_To_SignUp_Button"
             android:exported="false" />
         <activity
-            android:name=".Go_to_Login_button"
-            android:exported="false" />
-        <activity
             android:name=".Go_To_Login_Signup"
             android:exported="false" />
         <activity
-            android:name=".Go_to_expand_icon"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_Water_park"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_Standard_room_details"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_food_payment"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_View_details"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_Success_message"
-            android:exported="false" />
-        <activity
-            android:name=".Go_Tap_Silog"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_food"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_Kiddie_pool"
-            android:exported="false" />
-        <activity
-            android:name=".Go_to_Rooms"
-            android:exported="false" />
-
-        <!-- Booking Confirmation Activity -->
-        <activity
-            android:name=".Go_to_booking_confirmation"
-            android:exported="false"
-            android:label="Booking Confirmation"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <!-- Notifications Activity -->
-        <activity
-            android:name=".NotificationsActivity"
-            android:exported="false"
-            android:label="Notifications"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <!-- File Provider for sharing receipts -->
+            android:name=".MainActivity"
+            android:exported="false" /> <!-- FileProvider for Camera image saving -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -104,19 +66,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
-        <!-- Main Activity -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>

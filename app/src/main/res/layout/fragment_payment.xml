@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Display Total Cost -->
+    <TextView
+        android:id="@+id/totalCostText"
+        android:text="Total: ₱0.00"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Instructions for GCash Payment -->
+    <TextView
+        android:id="@+id/paymentInstructions"
+        android:text="Please scan the QR code below or send the total amount to our GCash account: 09XXXXXXXXX.\nMake sure to use the same email you registered with."
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- GCash Payment QR -->
+    <ImageView
+        android:id="@+id/paymentImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/gcash_qrcode"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Submit Booking Button -->
+    <Button
+        android:id="@+id/submitBookingButton"
+        android:text="Submit Booking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

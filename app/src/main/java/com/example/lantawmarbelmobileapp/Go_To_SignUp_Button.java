@@ -1,283 +1,265 @@
 package com.example.lantawmarbelmobileapp;
 
+import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+
+import java.io.ByteArrayOutputStream;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Go_To_SignUp_Button extends AppCompatActivity {
 
-    // UI Components
-    private TextInputLayout firstNameLayout, lastNameLayout, addressLayout,
-            emailLayout, phoneLayout, passwordLayout, confirmPasswordLayout;
-    private TextInputEditText firstNameInput, lastNameInput, addressInput,
-            emailInput, phoneInput, passwordInput, confirmPasswordInput;
-    private MaterialButton signUpButton;
+    private static final int REQUEST_AVATAR_CAPTURE = 100;
+    private static final int REQUEST_ID_CAPTURE = 101;
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
-    // SharedPreferences - Same constants as login activity
-    private SharedPreferences sharedPreferences;
-    private static final String PREF_NAME = "LantawMarbelPrefs";
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
-    private static final String KEY_USERNAME = "userName";
-    private static final String KEY_USER_EMAIL = "KEY_USER_EMAIL";
-    private static final String KEY_USER_PASSWORD = "KEY_USER_PASSWORD";
-    private static final String KEY_USER_PHONE = "KEY_USER_PHONE";
-    private static final String KEY_FIRST_NAME = "KEY_FIRST_NAME";
-    private static final String KEY_LAST_NAME = "KEY_LAST_NAME";
-    private static final String KEY_USER_ADDRESS = "KEY_USER_ADDRESS";
+    private TextInputEditText usernameInput, firstNameInput, lastNameInput, emailInput, phoneInput, passwordInput, confirmPasswordInput, birthdayInput;
+    private TextInputLayout usernameLayout, firstNameLayout, lastNameLayout, emailLayout, phoneLayout, passwordLayout, confirmPasswordLayout, birthdayLayout;
+    private Spinner genderSpinner;
+    private MaterialButton selectAvatarButton, selectIdButton, signUpButton;
+
+    private Bitmap avatarBitmap, idBitmap;
+    private String idOcrText;
+
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_go_to_signup_button);
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-
-        // Initialize views
-        initializeViews();
-
-        // Set click listeners
-        setClickListeners();
-    }
-
-    private void initializeViews() {
-        // Initialize TextInputLayouts
+        // Initialize layouts
+        usernameLayout = findViewById(R.id.usernameLayout);
         firstNameLayout = findViewById(R.id.firstNameLayout);
         lastNameLayout = findViewById(R.id.lastNameLayout);
-        addressLayout = findViewById(R.id.addressLayout);
         emailLayout = findViewById(R.id.emailLayout);
         phoneLayout = findViewById(R.id.phoneLayout);
         passwordLayout = findViewById(R.id.passwordLayout);
         confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
+        birthdayLayout = findViewById(R.id.birthdayLayout);
 
-        // Initialize TextInputEditTexts
+        // Inputs
+        usernameInput = findViewById(R.id.usernameInput);
         firstNameInput = findViewById(R.id.firstNameInput);
         lastNameInput = findViewById(R.id.lastNameInput);
-        addressInput = findViewById(R.id.addressInput);
         emailInput = findViewById(R.id.emailInput);
         phoneInput = findViewById(R.id.phoneInput);
         passwordInput = findViewById(R.id.passwordInput);
         confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
+        birthdayInput = findViewById(R.id.birthdayInput);
 
-        // Initialize Button
+        // Gender spinner
+        genderSpinner = findViewById(R.id.genderSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.gender_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(adapter);
+
+        // Buttons
+        selectAvatarButton = findViewById(R.id.selectAvatarButton);
+        selectIdButton = findViewById(R.id.selectIdButton);
         signUpButton = findViewById(R.id.signUpButton);
+
+        apiService = ApiClient.getClient().create(ApiService.class);
+
+        selectAvatarButton.setOnClickListener(v -> checkCameraPermission(REQUEST_AVATAR_CAPTURE));
+        selectIdButton.setOnClickListener(v -> checkCameraPermission(REQUEST_ID_CAPTURE));
+        signUpButton.setOnClickListener(v -> attemptSignup());
+
+        findViewById(R.id.loginLink).setOnClickListener(v -> navigateToLogin());
     }
 
-    private void setClickListeners() {
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSignUp();
-            }
-        });
-
-        // Handle login link click (if you have it in your layout)
-        findViewById(R.id.loginLink).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToLogin();
-            }
-        });
+    private void checkCameraPermission(int requestCode) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CAMERA_PERMISSION + requestCode); // offset requestCode
+        } else {
+            captureImage(requestCode);
+        }
     }
 
-    private void performSignUp() {
-        // Clear previous errors
+    private void captureImage(int requestCode) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == REQUEST_CAMERA_PERMISSION + REQUEST_AVATAR_CAPTURE) {
+                captureImage(REQUEST_AVATAR_CAPTURE);
+            } else if (requestCode == REQUEST_CAMERA_PERMISSION + REQUEST_ID_CAPTURE) {
+                captureImage(REQUEST_ID_CAPTURE);
+            }
+        } else {
+            Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+            if (requestCode == REQUEST_AVATAR_CAPTURE) {
+                avatarBitmap = bitmap;
+                Toast.makeText(this, "Avatar captured", Toast.LENGTH_SHORT).show();
+            } else if (requestCode == REQUEST_ID_CAPTURE) {
+                idBitmap = bitmap;
+                Toast.makeText(this, "ID captured", Toast.LENGTH_SHORT).show();
+
+                // Run OCR
+                InputImage image = InputImage.fromBitmap(idBitmap, 0);
+                TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
+                recognizer.process(image)
+                        .addOnSuccessListener(visionText -> {
+                            idOcrText = visionText.getText();
+                            Toast.makeText(this, "ID OCR: " + idOcrText, Toast.LENGTH_LONG).show();
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(this, "OCR failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        }
+    }
+
+    private void attemptSignup() {
         clearErrors();
 
-        // Get input values
+        String username = usernameInput.getText().toString().trim();
         String firstName = firstNameInput.getText().toString().trim();
         String lastName = lastNameInput.getText().toString().trim();
-        String address = addressInput.getText().toString().trim();
         String email = emailInput.getText().toString().trim();
         String phone = phoneInput.getText().toString().trim();
         String password = passwordInput.getText().toString();
         String confirmPassword = confirmPasswordInput.getText().toString();
+        String birthday = birthdayInput.getText().toString().trim();
+        String gender = genderSpinner.getSelectedItem().toString();
 
-        // Validate inputs
-        if (validateInputs(firstName, lastName, address, email, phone, password, confirmPassword)) {
-            // Check if user already exists
-            if (checkUserExists(email, phone)) {
-                Toast.makeText(this, "User with this email or phone already exists!", Toast.LENGTH_LONG).show();
-                return;
+        if (!validateInputs(username, firstName, lastName, email, phone, password, confirmPassword, gender, birthday))
+            return;
+
+        signUpButton.setEnabled(false);
+        signUpButton.setText("Signing up...");
+
+        // Convert Bitmaps to Multipart
+        MultipartBody.Part avatarPart = bitmapToPart(avatarBitmap, "avatar", "avatar.jpg");
+        MultipartBody.Part validIDPart = bitmapToPart(idBitmap, "validID", "id.jpg");
+
+        apiService.signupMultipart(
+                RequestBody.create(MediaType.parse("text/plain"), username),
+                RequestBody.create(MediaType.parse("text/plain"), password),
+                RequestBody.create(MediaType.parse("text/plain"), confirmPassword),
+                RequestBody.create(MediaType.parse("text/plain"), firstName),
+                RequestBody.create(MediaType.parse("text/plain"), lastName),
+                RequestBody.create(MediaType.parse("text/plain"), email),
+                RequestBody.create(MediaType.parse("text/plain"), phone),
+                RequestBody.create(MediaType.parse("text/plain"), gender),
+                RequestBody.create(MediaType.parse("text/plain"), birthday),
+                avatarPart,
+                validIDPart
+        ).enqueue(new Callback<SignUpResponse>() {
+            @Override
+            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
+                signUpButton.setEnabled(true);
+                signUpButton.setText("Sign Up");
+
+                if (response.isSuccessful() && response.body() != null && response.body().success) {
+                    Toast.makeText(Go_To_SignUp_Button.this, "Account created! Please login.", Toast.LENGTH_LONG).show();
+                    navigateToLogin();
+                } else {
+                    // Handle malformed JSON or unexpected response
+                    try {
+                        String rawResponse = response.errorBody() != null ? response.errorBody().string() : "empty";
+                        Toast.makeText(Go_To_SignUp_Button.this, "Malformed JSON / Error: " + rawResponse, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(Go_To_SignUp_Button.this, "Unknown error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
             }
 
-            // If validation passes, create account
-            createAccount(firstName, lastName, address, email, phone, password);
-        }
+            @Override
+            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                signUpButton.setEnabled(true);
+                signUpButton.setText("Sign Up");
+
+                // Log full error including raw response if possible
+                Toast.makeText(Go_To_SignUp_Button.this, "Request failed: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-    private boolean checkUserExists(String email, String phone) {
-        String savedEmail = sharedPreferences.getString(KEY_USER_EMAIL, "");
-        String savedPhone = sharedPreferences.getString(KEY_USER_PHONE, "");
-
-        return email.equals(savedEmail) || phone.equals(savedPhone);
+    private MultipartBody.Part bitmapToPart(Bitmap bitmap, String fieldName, String filename) {
+        if (bitmap == null) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        RequestBody body = RequestBody.create(MediaType.parse("image/jpeg"), baos.toByteArray());
+        return MultipartBody.Part.createFormData(fieldName, filename, body);
     }
 
-    private boolean validateInputs(String firstName, String lastName, String address,
-                                   String email, String phone, String password, String confirmPassword) {
+    private boolean validateInputs(String username, String firstName, String lastName, String email,
+                                   String phone, String password, String confirmPassword,
+                                   String gender, String birthday) {
         boolean isValid = true;
 
-        // Validate First Name
-        if (TextUtils.isEmpty(firstName)) {
-            firstNameLayout.setError("First name is required");
-            isValid = false;
-        } else if (firstName.length() < 2) {
-            firstNameLayout.setError("First name must be at least 2 characters");
-            isValid = false;
-        }
-
-        // Validate Last Name
-        if (TextUtils.isEmpty(lastName)) {
-            lastNameLayout.setError("Last name is required");
-            isValid = false;
-        } else if (lastName.length() < 2) {
-            lastNameLayout.setError("Last name must be at least 2 characters");
-            isValid = false;
-        }
-
-        // Validate Address
-        if (TextUtils.isEmpty(address)) {
-            addressLayout.setError("Address is required");
-            isValid = false;
-        } else if (address.length() < 10) {
-            addressLayout.setError("Please enter a complete address");
-            isValid = false;
-        }
-
-        // Validate Email
-        if (TextUtils.isEmpty(email)) {
-            emailLayout.setError("Email is required");
-            isValid = false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailLayout.setError("Please enter a valid email address");
-            isValid = false;
-        }
-
-        // Validate Phone Number
-        if (TextUtils.isEmpty(phone)) {
-            phoneLayout.setError("Phone number is required");
-            isValid = false;
-        } else if (phone.length() < 10) {
-            phoneLayout.setError("Please enter a valid phone number");
-            isValid = false;
-        } else if (!phone.matches("^[+]?[0-9]{10,13}$")) {
-            phoneLayout.setError("Phone number can only contain numbers and optional + prefix");
-            isValid = false;
-        }
-
-        // Validate Password
-        if (TextUtils.isEmpty(password)) {
-            passwordLayout.setError("Password is required");
-            isValid = false;
-        } else if (password.length() < 8) {
-            passwordLayout.setError("Password must be at least 8 characters");
-            isValid = false;
-        } else if (!isPasswordStrong(password)) {
-            passwordLayout.setError("Password must contain at least one uppercase, lowercase, number, and special character");
-            isValid = false;
-        }
-
-        // Validate Confirm Password
-        if (TextUtils.isEmpty(confirmPassword)) {
-            confirmPasswordLayout.setError("Please confirm your password");
-            isValid = false;
-        } else if (!password.equals(confirmPassword)) {
-            confirmPasswordLayout.setError("Passwords do not match");
-            isValid = false;
-        }
+        if (TextUtils.isEmpty(username)) { usernameLayout.setError("Username required"); isValid = false; }
+        if (TextUtils.isEmpty(firstName)) { firstNameLayout.setError("First name required"); isValid = false; }
+        if (TextUtils.isEmpty(lastName)) { lastNameLayout.setError("Last name required"); isValid = false; }
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) { emailLayout.setError("Valid email required"); isValid = false; }
+        if (TextUtils.isEmpty(phone)) { phoneLayout.setError("Phone required"); isValid = false; }
+        if (TextUtils.isEmpty(password) || password.length() < 8) { passwordLayout.setError("Password min 8 chars"); isValid = false; }
+        if (!password.equals(confirmPassword)) { confirmPasswordLayout.setError("Passwords do not match"); isValid = false; }
 
         return isValid;
     }
 
-    private boolean isPasswordStrong(String password) {
-        // Check for at least one uppercase letter
-        boolean hasUpperCase = password.matches(".*[A-Z].*");
-        // Check for at least one lowercase letter
-        boolean hasLowerCase = password.matches(".*[a-z].*");
-        // Check for at least one digit
-        boolean hasDigit = password.matches(".*\\d.*");
-        // Check for at least one special character
-        boolean hasSpecialChar = password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*");
-
-        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
-    }
-
     private void clearErrors() {
+        usernameLayout.setError(null);
         firstNameLayout.setError(null);
         lastNameLayout.setError(null);
-        addressLayout.setError(null);
         emailLayout.setError(null);
         phoneLayout.setError(null);
         passwordLayout.setError(null);
         confirmPasswordLayout.setError(null);
-    }
-
-    private void createAccount(String firstName, String lastName, String address,
-                               String email, String phone, String password) {
-        // Disable button to prevent multiple clicks
-        signUpButton.setEnabled(false);
-        signUpButton.setText("Creating Account...");
-
-        // Simulate network delay and then save user data
-        signUpButton.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Save user data to SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                // Save all user information
-                editor.putString(KEY_FIRST_NAME, firstName);
-                editor.putString(KEY_LAST_NAME, lastName);
-                editor.putString(KEY_USER_ADDRESS, address);
-                editor.putString(KEY_USER_EMAIL, email);
-                editor.putString(KEY_USER_PHONE, phone);
-                editor.putString(KEY_USER_PASSWORD, password);
-
-                // Set registration status
-                editor.putBoolean("isRegistered", true);
-
-                // Apply changes
-                editor.apply();
-
-                // Reset button state
-                signUpButton.setEnabled(true);
-                signUpButton.setText("Sign Up");
-
-                // Show success message
-                Toast.makeText(Go_To_SignUp_Button.this,
-                        "Account created successfully! You can now login with your email/phone and password.",
-                        Toast.LENGTH_LONG).show();
-
-                // Navigate back to login activity
-                navigateToLogin();
-            }
-        }, 2000); // 2 second delay to simulate network request
+        birthdayLayout.setError(null);
     }
 
     private void navigateToLogin() {
-        Intent intent = new Intent(Go_To_SignUp_Button.this, Go_To_Login_Signup.class);
-        // Add flags to clear the activity stack and start fresh
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish(); // Close the current activity
-    }
-
-    // Handle back button press
-    @Override
-    public void onBackPressed() {
-        navigateToLogin();
-        super.onBackPressed();
+        startActivity(new Intent(this, Go_To_Login_Signup.class));
+        finish();
     }
 }

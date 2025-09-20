@@ -23,9 +23,13 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
 import android.widget.PopupMenu;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView userProfile;
     private ImageView expandIcon;
     private ImageView profileIcon;
-    private RelativeLayout notificationBell;
+    private ImageView notificationBell;
     private TextView notificationBadge;
 
     private ImageButton homeButton;
@@ -47,88 +51,87 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton BookingButton;
 
     // Notification system components
-    private NotificationManager notificationManager;
+//    private NotificationManager notificationManager;
     private BroadcastReceiver notificationReceiver;
 
     // For checking login status
     private SharedPreferences sharedPreferences;
     private static final String PREF_NAME = "LantawMarbelPrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
-    private static final String KEY_USERNAME = "username";
+    private static final String KEY_USER_NAME = "KEY_USER_NAME";
+    private static final String KEY_GUEST_ID = "guestID";
+    private static final String KEY_GUEST_EMAIL = "guestEmail";
 
+
+
+    private String getGuestFullName() {
+        return sharedPreferences.getString(KEY_USER_NAME, "Guest");
+    }
+
+    private int getGuestID() {
+        return sharedPreferences.getInt(KEY_GUEST_ID, -1);
+    }
+
+    private String getGuestEmail() {
+        return sharedPreferences.getString(KEY_GUEST_EMAIL, "");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Profile icon click listener (existing code)
-        ImageView profileIcon = findViewById(R.id.profileIcon);
-        profileIcon.setOnClickListener(view -> {
-            PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
-            popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
-
-            popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.action_logout) {
-                    // Clear saved session (if any)
-                    SharedPreferences prefs = getSharedPreferences("LantawMarbelPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.clear();
-                    editor.apply();
-
-                    // Redirect to Login/Signup activity
-                    Intent intent = new Intent(MainActivity.this, Go_To_Login_Signup.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-
-                    // Close MainActivity so back button won't go here
-                    finish();
-                    return true;
-                }
-                return false;
-            });
-
-            popupMenu.show();
-        });
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        initializeViews();
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
-        // Initialize views
-        initializeViews();
+        // Show logged-in user's name
+        if (userProfile != null && isUserLoggedIn()) {
+            userProfile.setText(getGuestFullName());
+        }
 
-        // Initialize notification system
-        initializeNotificationSystem();
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
 
-        // Set up click listeners
-        setupClickListeners();
+        viewPager.setAdapter(new TabPagerAdapter(MainActivity.this));
 
-        // Update UI based on login status
-        updateUIForLoginStatus();
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> {
+                    switch (position) {
+                        case 0: tab.setText("Rooms"); break;
+                        case 1: tab.setText("Amenities"); break;
+                        case 2: tab.setText("Cottages"); break;
+                        case 3: tab.setText("Menu"); break;
+                    }
+                }).attach();
 
-        // Handle intent extras (for returning from booking confirmation)
         handleIntentExtras();
-
-        // Update notification badge
-        updateNotificationBadge();
-
-        // Add welcome notification if user just logged in
+        BookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, BookingListActivity.class);
+                startActivity(intent);
+            }
+        });
+inquiryButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent=new Intent(MainActivity.this,ChatActivity.class);
+        startActivity(intent);
+    }
+});
         addWelcomeNotificationIfNeeded();
     }
+
 
     private void initializeViews() {
         // Cards
         discountCard = findViewById(R.id.discountCard);
-        bookCard = findViewById(R.id.BookCard);
-        foodCard = findViewById(R.id.foodCard);
-        dayTourCard = findViewById(R.id.dayTourCard);
-        viewQRCard = findViewById(R.id.ViewQRCard);
+//        bookCard = findViewById(R.id.BookCard);
+//        foodCard = findViewById(R.id.foodCard);
+//        dayTourCard = findViewById(R.id.dayTourCard);
+//        viewQRCard = findViewById(R.id.ViewQRCard);
 
         // Text Views and Images
         userProfile = findViewById(R.id.userProfile);
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Notification components
         notificationBell = findViewById(R.id.notificationBell);
-        notificationBadge = findViewById(R.id.notificationBadge);
+//        notificationBadge = findViewById(R.id.notificationBadge);
 
         // Bottom navigation buttons
         homeButton = findViewById(R.id.homeButton);
@@ -145,18 +148,18 @@ public class MainActivity extends AppCompatActivity {
         inquiryButton = findViewById(R.id.inquiryButton);
     }
 
-    private void initializeNotificationSystem() {
-        notificationManager = new NotificationManager(this);
-        setupNotificationReceiver();
-        setupNotificationBellListener();
-    }
+//    private void initializeNotificationSystem() {
+//        notificationManager = new NotificationManager(this);
+//        setupNotificationReceiver();
+//        setupNotificationBellListener();
+//    }
 
     private void setupNotificationReceiver() {
         notificationReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if ("com.example.lantawmarbelmobileapp.NOTIFICATION_UPDATE".equals(intent.getAction())) {
-                    updateNotificationBadge();
+//                    updateNotificationBadge();
 
                     // Show a toast if there's a new notification
                     if (intent.getBooleanExtra("new_notification", false)) {
@@ -168,21 +171,21 @@ public class MainActivity extends AppCompatActivity {
         };
 
         IntentFilter filter = new IntentFilter("com.example.lantawmarbelmobileapp.NOTIFICATION_UPDATE");
-        registerReceiver(notificationReceiver, filter);
+//        registerReceiver(notificationReceiver, filter);
     }
 
-    private void setupNotificationBellListener() {
-        if (notificationBell != null) {
-            notificationBell.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Open notifications activity
-                    Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-    }
+//    private void setupNotificationBellListener() {
+//        if (notificationBell != null) {
+//            notificationBell.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // Open notifications activity
+//                    Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//        }
+//    }
 
     private void handleIntentExtras() {
         Intent intent = getIntent();
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         if (intent.getBooleanExtra("booking_confirmed", false)) {
             Toast.makeText(this, "Welcome back! Your booking has been confirmed.",
                     Toast.LENGTH_LONG).show();
-            updateNotificationBadge();
+//            updateNotificationBadge();
         }
 
         // Check if need to navigate to booking section
@@ -210,136 +213,135 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateNotificationBadge() {
-        if (notificationManager != null && notificationBadge != null) {
-            int unreadCount = notificationManager.getUnreadNotificationCount();
-
-            if (unreadCount > 0) {
-                notificationBadge.setVisibility(View.VISIBLE);
-                notificationBadge.setText(String.valueOf(Math.min(unreadCount, 99))); // Show max 99
-            } else {
-                notificationBadge.setVisibility(View.GONE);
-            }
-        }
-    }
+//    private void updateNotificationBadge() {
+//        if (notificationManager != null && notificationBadge != null) {
+//            int unreadCount = notificationManager.getUnreadNotificationCount();
+//
+//            if (unreadCount > 0) {
+//                notificationBadge.setVisibility(View.VISIBLE);
+//                notificationBadge.setText(String.valueOf(Math.min(unreadCount, 99))); // Show max 99
+//            } else {
+//                notificationBadge.setVisibility(View.GONE);
+//            }
+//        }
+//    }
 
     private void addWelcomeNotificationIfNeeded() {
-        // Check if this is a fresh login and add welcome notification
-        SharedPreferences prefs = getSharedPreferences("LantawMarbelPrefs", MODE_PRIVATE);
-        boolean showWelcome = prefs.getBoolean("show_welcome_notification", false);
+        boolean showWelcome = sharedPreferences.getBoolean("show_welcome_notification", false);
 
         if (showWelcome && isUserLoggedIn()) {
-            String username = sharedPreferences.getString(KEY_USERNAME, "User");
+            String username = getGuestFullName();
             String welcomeMessage = "Welcome to Lantaw Marbel Resort, " + username + "! " +
                     "Explore our rooms, food, and day tour packages.";
 
-            notificationManager.addNotification(welcomeMessage, "WELCOME-001", "welcome");
-            updateNotificationBadge();
+            // notificationManager.addNotification(welcomeMessage, "WELCOME-001", "welcome");
+            // updateNotificationBadge();
 
             // Clear the flag so we don't show it again
-            SharedPreferences.Editor editor = prefs.edit();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("show_welcome_notification", false);
             editor.apply();
         }
     }
 
+
     private void setupClickListeners() {
         // Discount Card
-        discountCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkLoginAndProceed(() -> {
-                    Toast.makeText(MainActivity.this, "Discount Special clicked", Toast.LENGTH_SHORT).show();
-                    // Add your navigation here
-                });
-            }
-        });
+//        discountCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkLoginAndProceed(() -> {
+//                    Toast.makeText(MainActivity.this, "Discount Special clicked", Toast.LENGTH_SHORT).show();
+//                    // Add your navigation here
+//                });
+//            }
+//        });
 
         // Book Card
-        bookCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(MainActivity.this, Go_To_List_of_bookings.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Rooms activity not found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Food Card
-        foodCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(MainActivity.this, Go_to_food.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Food activity not found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Day Tour Card
-        dayTourCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(MainActivity.this, Go_to_daytour.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Day Tour clicked", Toast.LENGTH_SHORT).show();
-                    // Add your navigation here
-                }
-            }
-        });
-
-        // View QR Card
-        viewQRCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkLoginAndProceed(() -> {
-                    Toast.makeText(MainActivity.this, "View QR clicked", Toast.LENGTH_SHORT).show();
-                    // Add your navigation here
-                });
-            }
-        });
+//        bookCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Intent intent = new Intent(MainActivity.this, Go_To_List_of_bookings.class);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    Toast.makeText(MainActivity.this, "Rooms activity not found", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        // Food Card
+//        foodCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Intent intent = new Intent(MainActivity.this, Go_to_food.class);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    Toast.makeText(MainActivity.this, "Food activity not found", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        // Day Tour Card
+//        dayTourCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Intent intent = new Intent(MainActivity.this, Go_to_daytour.class);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    Toast.makeText(MainActivity.this, "Day Tour clicked", Toast.LENGTH_SHORT).show();
+//                    // Add your navigation here
+//                }
+//            }
+//        });
+//
+//        // View QR Card
+//        viewQRCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                checkLoginAndProceed(() -> {
+//                    Toast.makeText(MainActivity.this, "View QR clicked", Toast.LENGTH_SHORT).show();
+//                    // Add your navigation here
+//                });
+//            }
+//        });
 
         // Profile-related clicks
-        expandIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to profile
-                try {
-                    Intent intent = new Intent(MainActivity.this, Go_to_expand_icon.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Profile activity not found", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Bottom Navigation
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Already on Home", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        inquiryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(MainActivity.this, Go_To_Inquiry.class);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    // Inquiry doesn't require login
-                    Toast.makeText(MainActivity.this, "Inquiry clicked", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        expandIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Navigate to profile
+//                try {
+//                    Intent intent = new Intent(MainActivity.this, Go_to_expand_icon.class);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    Toast.makeText(MainActivity.this, "Profile activity not found", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//        // Bottom Navigation
+//        homeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(MainActivity.this, "Already on Home", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        inquiryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    Intent intent = new Intent(MainActivity.this, Go_To_Inquiry.class);
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                    // Inquiry doesn't require login
+//                    Toast.makeText(MainActivity.this, "Inquiry clicked", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     private void checkLoginAndProceed(Runnable action) {
@@ -392,21 +394,12 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void updateUIForLoginStatus() {
-        if (isUserLoggedIn()) {
-            String username = sharedPreferences.getString(KEY_USERNAME, "User");
-            userProfile.setText(username);
-        } else {
-            userProfile.setText("Guest User");
-        }
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
         // Update UI when returning to this activity (in case user logged in)
-        updateUIForLoginStatus();
-        updateNotificationBadge();
+
     }
 
     @Override
@@ -422,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
         if (isLoggedIn && username != null) {
-            editor.putString(KEY_USERNAME, username);
+            editor.putString(KEY_USER_NAME, username);
             // Set flag to show welcome notification
             editor.putBoolean("show_welcome_notification", true);
         }
@@ -432,8 +425,8 @@ public class MainActivity extends AppCompatActivity {
     // Public methods for adding notifications (can be called from other activities)
     public void addBookingConfirmation(String bookingId, String guestName) {
         String message = "Booking " + bookingId + " confirmed successfully for " + guestName;
-        notificationManager.addNotification(message, bookingId, "booking_confirmation");
-        updateNotificationBadge();
+//        notificationManager.addNotification(message, bookingId, "booking_confirmation");
+//        updateNotificationBadge();
 
         // Send broadcast to update other activities if needed
         Intent broadcastIntent = new Intent("com.example.lantawmarbelmobileapp.NOTIFICATION_UPDATE");
@@ -442,8 +435,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addBookingReminder(String bookingId, String message) {
-        notificationManager.addNotification(message, bookingId, "booking_reminder");
-        updateNotificationBadge();
+//        notificationManager.addNotification(message, bookingId, "booking_reminder");
+//        updateNotificationBadge();
 
         Intent broadcastIntent = new Intent("com.example.lantawmarbelmobileapp.NOTIFICATION_UPDATE");
         broadcastIntent.putExtra("new_notification", true);
@@ -452,21 +445,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void addBookingCancellation(String bookingId, String guestName) {
         String message = "Booking " + bookingId + " has been cancelled for " + guestName;
-        notificationManager.addNotification(message, bookingId, "booking_cancellation");
-        updateNotificationBadge();
 
         Intent broadcastIntent = new Intent("com.example.lantawmarbelmobileapp.NOTIFICATION_UPDATE");
         broadcastIntent.putExtra("new_notification", true);
         sendBroadcast(broadcastIntent);
     }
 
-    // Method to add test notifications (for testing purposes)
-    public void addTestNotification() {
-        notificationManager.addNotification(
-                "Test notification: Your booking request has been received.",
-                "TEST-001",
-                "booking_confirmation"
-        );
-        updateNotificationBadge();
-    }
 }

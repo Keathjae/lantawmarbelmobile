@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@drawable/dialog_background">
+    android:background="@drawable/dialog_background"
+    android:fitsSystemWindows="true">
 
 
     <!-- Logo -->
