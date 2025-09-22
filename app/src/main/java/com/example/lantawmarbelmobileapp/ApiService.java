@@ -6,6 +6,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -46,8 +47,15 @@ public interface ApiService {
     );
     @GET("bookings/guest/{guestID}")
     Call<List<Booking>> getBookingsForGuest(@Path("guestID") int guestID);
+    @GET("bookings/{id}")
+    Call<Booking> getBookingbyId(@Path("id") int id);
+
     @POST("bookings")
     Call<BookingRequest> storeBooking(@Body BookingRequest booking);
+    @PUT("bookings/{id}")
+    Call<BookingRequest> updateBooking(@Path("id") int id, @Body BookingRequest booking);
+
+
     @GET("chats")
     Call<List<Chat>> getChats();
 

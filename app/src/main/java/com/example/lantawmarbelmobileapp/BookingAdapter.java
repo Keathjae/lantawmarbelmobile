@@ -53,7 +53,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
         // Rooms (take first room if exists)
         if (booking.roomBookings != null && !booking.roomBookings.isEmpty()) {
-            int roomNum = booking.roomBookings.get(0).room.roomNum;
+            int roomNum = booking.roomBookings.get(0).getRoomnum();
             holder.txtRooms.setText("🏨 Room: #" + roomNum);
         } else {
             holder.txtRooms.setText("🏨 No room assigned");

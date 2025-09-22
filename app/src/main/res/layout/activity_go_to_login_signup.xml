@@ -57,7 +57,7 @@
             android:id="@+id/emailPhoneInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email/Phone Number"
+            android:hint="Username"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textColorHint="#999999" />

@@ -1,15 +1,23 @@
 package com.example.lantawmarbelmobileapp;
 
-public class Guest {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Guest implements Serializable {
+    @SerializedName("guestID")
     public int guestID;
-    public String firstname;
-    public String lastname;
-    public String mobilenum;
+
+    @SerializedName("firstname")
+    public String firstName;
+
+    @SerializedName("lastname")
+    public String lastName;
+
+    @SerializedName("email")
     public String email;
-    public String gender;
-    public String birthday;
-    public String validID;  // Path to uploaded ID
-    public String avatar;   // Path to uploaded avatar
-    public String role;
-    public int userID;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

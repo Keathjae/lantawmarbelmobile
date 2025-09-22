@@ -1,45 +1,96 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <!-- Display Total Cost -->
-    <TextView
-        android:id="@+id/totalCostText"
-        android:text="Total: ₱0.00"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <!-- Instructions for GCash Payment -->
-    <TextView
-        android:id="@+id/paymentInstructions"
-        android:text="Please scan the QR code below or send the total amount to our GCash account: 09XXXXXXXXX.\nMake sure to use the same email you registered with."
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginBottom="15dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <!-- GCash Payment QR -->
-    <ImageView
-        android:id="@+id/paymentImage"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/gcash_qrcode"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:layout_marginBottom="20dp" />
+        <!-- Display Total Cost -->
+        <TextView
+            android:id="@+id/totalCostText"
+            android:text="Total: ₱0.00"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <!-- Submit Booking Button -->
-    <Button
-        android:id="@+id/submitBookingButton"
-        android:text="Submit Booking"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <!-- Instructions -->
+        <TextView
+            android:id="@+id/paymentInstructions"
+            android:text="Please scan the QR code below or send the total amount to our GCash account: 09XXXXXXXXX."
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <!-- QR -->
+        <ImageView
+            android:id="@+id/paymentImage"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@drawable/gcash_qrcode"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Payment Inputs -->
+        <EditText
+            android:id="@+id/paymentAmountInput"
+            android:hint="Enter Amount Paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <EditText
+            android:id="@+id/paymentRefInput"
+            android:hint="Reference Number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_input"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/addPaymentButton"
+            android:text="Add Payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+
+        <!-- ✅ Payment List -->
+        <TextView
+            android:id="@+id/paymentListLabel"
+            android:text="Payments Made:"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/paymentRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_input"
+            android:padding="8dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Submit -->
+        <Button
+            android:id="@+id/submitBookingButton"
+            android:text="Submit Booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</ScrollView>
