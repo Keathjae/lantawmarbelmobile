@@ -168,7 +168,6 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="120dp"
-                                android:src="@drawable/executive_room"
                                 android:scaleType="centerCrop"
                                 android:layout_marginVertical="8dp" />
 
@@ -295,7 +294,6 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="120dp"
-                                android:src="@drawable/standard_room"
                                 android:scaleType="centerCrop"
                                 android:layout_marginVertical="8dp" />
 
@@ -422,7 +420,6 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="120dp"
-                                android:src="@drawable/glamping_room"
                                 android:scaleType="centerCrop"
                                 android:layout_marginVertical="8dp" />
 
@@ -549,7 +546,6 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="120dp"
-                                android:src="@drawable/family_room"
                                 android:scaleType="centerCrop"
                                 android:layout_marginVertical="8dp" />
 
