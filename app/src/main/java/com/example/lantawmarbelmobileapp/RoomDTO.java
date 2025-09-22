@@ -1,8 +1,8 @@
 package com.example.lantawmarbelmobileapp;
 
 // =================== Room DTO =================== //
+// RoomDTO.java
 public class RoomDTO {
     public int roomID;
-    public String roomname;
-    public double price;   // Add only fields the backend needs
+    public double price;
 }

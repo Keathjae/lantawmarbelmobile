@@ -40,9 +40,11 @@ public class BookingAmenitiesFragment extends Fragment {
 
         // TODO: Replace this with data fetched from API
 
-        adapter  = new BookAmenetyAdapter(getContext(),amenityList,selected -> {
-            for(int i=0;i<selected.size();i++){
-            viewModel.addAmenity(selected.get(i));
+        adapter = new BookAmenetyAdapter(getContext(), amenityList, selected -> {
+            if (selected.size() > 0) {
+                Amenity amenity =selected.get(0) ; // only one
+                viewModel.setAmenity(amenity);
+
                 int adultCount = viewModel.getAdultGuest().getValue() != null
                         ? viewModel.getAdultGuest().getValue()
                         : 0;
@@ -50,11 +52,10 @@ public class BookingAmenitiesFragment extends Fragment {
                         ? viewModel.getChildGuest().getValue()
                         : 0;
 
-                double total = (adultCount * selected.get(i).getAdultprice())+(childCount * selected.get(i).getChildprice());
-                viewModel.addToTotalPrice(total);
+                double total = (adultCount * amenity.getAdultprice()) + (childCount * amenity.getChildprice());
+                viewModel.setTotalPrice(total); // replace old total
             }
         });
-
         recyclerView.setAdapter(adapter);
 fetchAmenities();
         return view;

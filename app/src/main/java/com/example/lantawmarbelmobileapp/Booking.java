@@ -12,9 +12,6 @@ public class Booking implements Serializable {
     @SerializedName("guestID")
     public int guestID;
 
-    @SerializedName("guestamount")
-    public int guestAmount;
-
     @SerializedName("childguest")
     public int childGuest;
 
@@ -22,7 +19,7 @@ public class Booking implements Serializable {
     public int adultGuest;
 
     @SerializedName("totalprice")
-    public String totalPrice;
+    public double totalPrice;
 
     @SerializedName("bookingcreated")
     public String bookingCreated;
@@ -39,75 +36,24 @@ public class Booking implements Serializable {
     @SerializedName("guest")
     public Guest guest;
 
+    @SerializedName("amenity")
+    public Amenity amenity;
+
     @SerializedName("room_bookings")
-    public List<RoomBooking> roomBookings;
+    public List<Room> roomBookings;
 
     @SerializedName("cottage_bookings")
-    public List<CottageBooking> cottageBookings;
+    public List<Cottage> cottageBookings;
 
-    @SerializedName("amenity_book")
-    public List<AmenityBook> amenityBook;
+    @SerializedName("menu_bookings")
+    public List<Menu> menuBookings;
 
-    @SerializedName("billing")
-    public List<Billing> billing;
+    @SerializedName("billing")   // ✅ added
+    public Billing billing;
 
-    // Nested Serializable classes
-    public static class Guest implements Serializable {
-        @SerializedName("guestID")
-        public int guestID;
+    // ================= Billing ================= //
 
-        @SerializedName("firstname")
-        public String firstName;
 
-        @SerializedName("lastname")
-        public String lastName;
+    // ================= Payment ================= //
 
-        @SerializedName("email")
-        public String email;
-
-        public String getFullName() {
-            return firstName + " " + lastName;
-        }
-    }
-
-    public static class RoomBooking implements Serializable {
-        @SerializedName("roombookID")
-        public int roombookID;
-
-        @SerializedName("bookingID")
-        public int bookingID;
-
-        @SerializedName("roomID")
-        public int roomID; // sometimes returned directly in API
-
-        @SerializedName("room")
-        public Room room;
-    }
-
-    public static class Room implements Serializable {
-        @SerializedName("roomID")
-        public int roomID;
-
-        @SerializedName("roomnum")
-        public int roomNum;
-    }
-
-    public static class CottageBooking implements Serializable {
-        // Add fields if your API returns them
-    }
-
-    public static class AmenityBook implements Serializable {
-        // Add fields if your API returns them
-    }
-
-    public static class Billing implements Serializable {
-        @SerializedName("bookingID")
-        public int bookingID;
-
-        @SerializedName("totalamount")
-        public String totalAmount;
-
-        @SerializedName("status")
-        public String status;
-    }
 }

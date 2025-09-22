@@ -35,8 +35,8 @@ public class BookingDetailActivity extends AppCompatActivity {
         txtGuests.setText("Adults: " + booking.adultGuest + " | Children: " + booking.childGuest);
 
         StringBuilder rooms = new StringBuilder();
-        for (Booking.RoomBooking rb : booking.roomBookings) {
-            rooms.append("Room ").append(rb.room.roomNum).append("\n");
+        for (Room rb : booking.roomBookings) {
+            rooms.append("Room ").append(rb.getRoomnum()).append("\n");
         }
         txtRooms.setText(rooms.toString());
 
