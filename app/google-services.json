@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004869753349",
+    "project_id": "lantawmarbelresort-e4b76",
+    "storage_bucket": "lantawmarbelresort-e4b76.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004869753349:android:9a6f3d15886c83cfd5da6c",
+        "android_client_info": {
+          "package_name": "com.example.lantawmarbelmobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAetaw4txemZlwePw7oR7wxA2egC1sl6lY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

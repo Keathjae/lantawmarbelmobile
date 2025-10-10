@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {
 
-    private final List<Booking> bookings;
+    private final List<BookingRequest> bookings;
     private final BookingClickListener listener;
 
     public interface BookingClickListener {
-        void onBookingClick(Booking booking);
+        void onBookingClick(BookingRequest booking);
     }
 
-    public BookingAdapter(List<Booking> bookings, BookingClickListener listener) {
+    public BookingAdapter(List<BookingRequest> bookings, BookingClickListener listener) {
         this.bookings = bookings;
         this.listener = listener;
     }
@@ -33,17 +33,17 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     @Override
     public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
-        Booking booking = bookings.get(position);
+        BookingRequest booking = bookings.get(position); // ✅ now BookingDTO
 
         // Header
         holder.txtBookingID.setText("Booking #" + booking.bookingID);
         holder.txtStatus.setText(booking.status);
 
-        // Guest
-        if (booking.guest != null) {
-            holder.txtGuestName.setText("Guest: " + booking.guest.firstName + " " + booking.guest.lastName);
-            holder.txtGuestEmail.setText(booking.guest.email);
-        }
+//        // Guest
+//        if (booking.guest != null) {
+//            holder.txtGuestName.setText("Guest: " + booking.guest.firstName + " " + booking.guest.lastName);
+//            holder.txtGuestEmail.setText(booking.guest.email);
+//        }
 
         // Dates
         holder.txtDates.setText("📅 " + booking.bookingStart + " → " + booking.bookingEnd);
@@ -52,17 +52,17 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.txtGuests.setText("👨 " + booking.adultGuest + " Adults, 👦 " + booking.childGuest + " Children");
 
         // Rooms (take first room if exists)
-        if (booking.roomBookings != null && !booking.roomBookings.isEmpty()) {
-            int roomNum = booking.roomBookings.get(0).getRoomnum();
-            holder.txtRooms.setText("🏨 Room: #" + roomNum);
-        } else {
-            holder.txtRooms.setText("🏨 No room assigned");
-        }
+//        if (booking.roomBookings != null && !booking.roomBookings.isEmpty()) {
+//            int roomNum = booking.roomBookings.get(0).room.getRoomnum();
+//            holder.txtRooms.setText("🏨 Room: #" + roomNum);
+//        } else {
+//            holder.txtRooms.setText("🏨 No room assigned");
+//        }
 
         // Total
         holder.txtTotal.setText("💰 Total: ₱" + booking.totalPrice);
 
-        // Handle status color dynamically
+        // Status color
         switch (booking.status.toLowerCase()) {
             case "pending":
                 holder.txtStatus.setTextColor(holder.itemView.getContext().getResources().getColor(android.R.color.holo_orange_dark));
@@ -79,8 +79,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                 break;
         }
 
-        // On click
+        // Click
         holder.itemView.setOnClickListener(v -> listener.onBookingClick(booking));
+
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -20,6 +21,7 @@ public class BookingActivity extends AppCompatActivity {
     private static final String KEY_USER_NAME = "KEY_USER_NAME";
     private static final String KEY_GUEST_ID = "guestID";
     private static final String KEY_GUEST_EMAIL = "guestEmail";
+
     private int getGuestID() {
         return sharedPreferences.getInt(KEY_GUEST_ID, -1);
     }
@@ -27,7 +29,8 @@ public class BookingActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private BookingPagerAdapter adapter;
-    BookingViewModel bookingViewModel;
+    private BookingViewModel bookingViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,45 +41,66 @@ public class BookingActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
+
         int bookingID = getIntent().getIntExtra("bookingID", -1);
 
         if (bookingID != -1) {
             // Editing existing booking
             loadBookingData(bookingID);
-            } else {
-                // New booking → initialize empty/default values
-                bookingViewModel.resetBooking();
-            }
+        } else {
+            // New booking → initialize empty/default values
+            bookingViewModel.resetBooking();
+        }
         adapter = new BookingPagerAdapter(this);
         viewPager.setAdapter(adapter);
-bookingViewModel.setGuestID(getGuestID());
+        BookingDTO currentBooking = bookingViewModel.getBooking().getValue();
+        if (currentBooking == null) {
+            currentBooking = new BookingDTO();
+        }
+
+// Update guestID
+        currentBooking.guestID = getGuestID(); // or any integer value
+
+// Set updated object back to LiveData
+        bookingViewModel.setBooking(currentBooking);
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     switch (position) {
-                        case 0: tab.setText("Dates"); break;
-                        case 1: tab.setText("Rooms"); break;
-                        case 2: tab.setText("Amenities"); break;
-                        case 3: tab.setText("Cottages"); break;
-                        case 4: tab.setText("Menu"); break;
-                        case 5: tab.setText("Payment"); break;
+                        case 0:
+                            tab.setText("Dates");
+                            break;
+                        case 1:
+                            tab.setText("Services");
+                            break;
+                        case 2:
+                            tab.setText("Amenity");
+                            break;
+                        case 3:
+                            tab.setText("Payment");
+                            break;
                     }
                 }).attach();
     }
+
+    public BookingViewModel getBookingViewModel() {
+        return bookingViewModel;
+    }
+
     private void loadBookingData(int bookingID) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        apiService.getBookingbyId(bookingID).enqueue(new Callback<Booking>() {
+        apiService.getBookingbyId(bookingID).enqueue(new Callback<BookingRequest>() {
             @Override
-            public void onResponse(Call<Booking> call, Response<Booking> response) {
+            public void onResponse(Call<BookingRequest> call, Response<BookingRequest> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Booking booking = response.body();
+                    BookingRequest booking = response.body();
 
                     // ✅ map booking → ViewModel so fragments display it
-                    BookingMapper.toViewModel(booking, bookingViewModel);
+//                    BookingMapper.toViewModel(booking, bookingViewModel);
                 }
             }
 
             @Override
-            public void onFailure(Call<Booking> call, Throwable t) {
+            public void onFailure(Call<BookingRequest> call, Throwable t) {
                 Toast.makeText(BookingActivity.this, "❌ Failed to load booking", Toast.LENGTH_SHORT).show();
             }
         });

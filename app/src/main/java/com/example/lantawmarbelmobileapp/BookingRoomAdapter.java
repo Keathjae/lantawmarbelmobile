@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,28 +17,33 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BookingRoomAdapter extends RecyclerView.Adapter<BookingRoomAdapter.RoomViewHolder> {
-    private final Context context;
-    private final List<Room> rooms;
-    private final List<Room> selectedRooms = new ArrayList<>();
-    private final OnRoomsSelectedListener listener;
 
-    public interface OnRoomsSelectedListener {
-        void onRoomsSelected(List<Room> selected);
+    private final Context context;
+    private final OnRoomClickListener listener;
+
+    private List<Room> rooms = new ArrayList<>();           // ✅ adapter owns its copy
+    private final Set<Integer> selectedRoomIds = new HashSet<>();
+
+    public interface OnRoomClickListener {
+        void onRoomClicked(Room room, boolean isSelected);
     }
 
-    public BookingRoomAdapter(Context context, List<Room> rooms, OnRoomsSelectedListener listener) {
-        this.rooms = rooms;
-        this.listener = listener;
+    public BookingRoomAdapter(Context context, OnRoomClickListener listener) {
         this.context = context;
+        this.listener = listener;
+        setHasStableIds(true); // ✅ preserve row states
     }
 
     @NonNull
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_room, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_book_room, parent, false);
         return new RoomViewHolder(view);
     }
 
@@ -49,7 +55,6 @@ public class BookingRoomAdapter extends RecyclerView.Adapter<BookingRoomAdapter.
         holder.desc.setText(room.getDescription());
         holder.price.setText("₱" + room.getPrice());
 
-        // Load image with Glide
         Glide.with(context)
                 .load(room.getImage_url())
                 .apply(new RequestOptions()
@@ -59,23 +64,21 @@ public class BookingRoomAdapter extends RecyclerView.Adapter<BookingRoomAdapter.
                         .centerCrop())
                 .into(holder.image);
 
-        // ---- Handle Checkbox State ----
-        // Remove previous listener to avoid duplicate triggers
+        // reset listener first
         holder.checkBox.setOnCheckedChangeListener(null);
 
-        // Set initial state based on selection
-        holder.checkBox.setChecked(selectedRooms.contains(room));
-
+        // restore selection
+        holder.checkBox.setChecked(selectedRoomIds.contains(room.getRoomID()));
         holder.checkBox.setText("Avail");
+
+        // set new listener
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                if (!selectedRooms.contains(room)) {
-                    selectedRooms.add(room);
-                }
+                selectedRoomIds.add(room.getRoomID());
             } else {
-                selectedRooms.remove(room);
+                selectedRoomIds.remove(room.getRoomID());
             }
-            listener.onRoomsSelected(new ArrayList<>(selectedRooms));
+            listener.onRoomClicked(room, isChecked);
         });
     }
 
@@ -84,13 +87,63 @@ public class BookingRoomAdapter extends RecyclerView.Adapter<BookingRoomAdapter.
         return rooms.size();
     }
 
-    public void setSelectedRooms(List<Room> alreadySelected) {
-        selectedRooms.clear();
-        if (alreadySelected != null) {
-            selectedRooms.addAll(alreadySelected);
-        }
-        notifyDataSetChanged();
+    @Override
+    public long getItemId(int position) {
+        return rooms.get(position).getRoomID();
     }
+
+    // ✅ DiffUtil update method
+    public void updateRooms(List<Room> newRooms) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+            @Override public int getOldListSize() { return rooms.size(); }
+            @Override public int getNewListSize() { return newRooms.size(); }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return rooms.get(oldItemPosition).getRoomID() ==
+                        newRooms.get(newItemPosition).getRoomID();
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                return rooms.get(oldItemPosition).equals(newRooms.get(newItemPosition));
+            }
+        });
+
+        rooms = new ArrayList<>(newRooms); // ✅ replace list
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    // ✅ update only changed rows when selection changes
+    public void setSelectedRoomIds(Set<Integer> ids) {
+        if (ids == null) ids = new HashSet<>();
+
+        // Find what changed
+        Set<Integer> old = new HashSet<>(selectedRoomIds);
+        if (old.equals(ids)) {
+            // ✅ No changes -> do nothing (prevents flicker)
+            return;
+        }
+
+        // Compute added + removed items
+        Set<Integer> added = new HashSet<>(ids);
+        added.removeAll(old);
+
+        Set<Integer> removed = new HashSet<>(old);
+        removed.removeAll(ids);
+
+        selectedRoomIds.clear();
+        selectedRoomIds.addAll(ids);
+
+        // 🔄 Only update affected items
+        for (int i = 0; i < rooms.size(); i++) {
+            int roomId = rooms.get(i).getRoomID();
+            if (added.contains(roomId) || removed.contains(roomId)) {
+                notifyItemChanged(i);
+            }
+        }
+    }
+
 
     static class RoomViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;

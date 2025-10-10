@@ -36,12 +36,12 @@ public class CottageAdapter extends RecyclerView.Adapter<CottageAdapter.CottageV
     @Override
     public void onBindViewHolder(@NonNull CottageViewHolder holder, int position) {
         Cottage cottage = cottageList.get(position);
-        holder.name.setText(cottage.getCottageName());
+        holder.name.setText(cottage.getCottagename());
         holder.type.setText(cottage.getCapacity()+" Pax");
         holder.price.setText("₱" + cottage.getPrice());
         holder.status.setText("Status: " + cottage.getStatus());
 
-        String imageUrl = cottage.getImage();
+        String imageUrl = cottage.getImage_url();
 
         Glide.with(context)
                 .load(imageUrl != null && !imageUrl.isEmpty() ? imageUrl : null)

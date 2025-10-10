@@ -1,7 +1,5 @@
 package com.example.lantawmarbelmobileapp;
 
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,22 +17,47 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class BookAmenetyAdapter extends RecyclerView.Adapter<BookAmenetyAdapter.AmenityViewHolder> {
     private Context context;
+    private List<Amenity> amenities = new ArrayList<>();
+    private Amenity selectedAmenity; // only one selected
+    private OnAmenitySelectedListener listener;
 
-    private List<Amenity> amenities;
-    private List<Amenity> selectedAmenities = new ArrayList<>();
-    private OnAmenitiesSelectedListener listener;
-
-    public interface OnAmenitiesSelectedListener {
-        void onAmenitiesSelected(List<Amenity> selected);
+    public interface OnAmenitySelectedListener {
+        void onAmenitySelected(Amenity selected);
     }
 
-    public BookAmenetyAdapter(Context context,ArrayList<Amenity> amenities, OnAmenitiesSelectedListener listener) {
-        this.amenities = amenities;
-        this.context=context;
+    public BookAmenetyAdapter(Context context, OnAmenitySelectedListener listener) {
+        this.context = context;
         this.listener = listener;
+    }
+
+    public void setSelectedAmenity(Amenity selected) {
+        Amenity old = this.selectedAmenity;
+        this.selectedAmenity = selected;
+
+        if (old != null) {
+            int oldIndex = findIndexById(old.getAmenityID());
+            if (oldIndex != -1) notifyItemChanged(oldIndex);
+        }
+        if (selected != null) {
+            int newIndex = findIndexById(selected.getAmenityID());
+            if (newIndex != -1) notifyItemChanged(newIndex);
+        }
+    }
+
+    private int findIndexById(int amenityId) {
+        for (int i = 0; i < amenities.size(); i++) {
+            if (amenities.get(i).getAmenityID() == amenityId) return i;
+        }
+        return -1;
+    }
+
+    public void updateAmenities(List<Amenity> newAmenities, Amenity preselected) {
+        this.amenities.clear();
+        if (newAmenities != null) this.amenities.addAll(newAmenities);
+        this.selectedAmenity = preselected;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -48,30 +71,34 @@ public class BookAmenetyAdapter extends RecyclerView.Adapter<BookAmenetyAdapter.
     @Override
     public void onBindViewHolder(@NonNull AmenityViewHolder holder, int position) {
         Amenity amenity = amenities.get(position);
-        holder.checkBox.setText("Avail");
-
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                if (!selectedAmenities.contains(amenity)) selectedAmenities.add(amenity);
-            } else {
-                selectedAmenities.remove(amenity);
-            }
-            listener.onAmenitiesSelected(selectedAmenities);
-        });
 
         holder.name.setText(amenity.getAmenityname());
         holder.desc.setText(amenity.getDescription());
         holder.adultPrice.setText("Adult: ₱" + amenity.getAdultprice());
         holder.childPrice.setText("Child: ₱" + amenity.getChildprice());
 
-        String imageUrl = amenity.getImage();
+        holder.checkBox.setOnCheckedChangeListener(null);
+        holder.checkBox.setChecked(selectedAmenity != null &&
+                selectedAmenity.getAmenityID() == amenity.getAmenityID());
 
-        // Load image safely with placeholder and error image
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                selectedAmenity = amenity;
+                listener.onAmenitySelected(amenity);
+                setSelectedAmenity(amenity);
+            } else if (selectedAmenity != null &&
+                    selectedAmenity.getAmenityID() == amenity.getAmenityID()) {
+                selectedAmenity = null;
+                listener.onAmenitySelected(null);
+                setSelectedAmenity(null);
+            }
+        });
+
         Glide.with(context)
-                .load(imageUrl != null && !imageUrl.isEmpty() ? imageUrl : null) // avoid null
+                .load(amenity.getImage())
                 .apply(new RequestOptions()
-                        .placeholder(R.drawable.placeholder_image)  // temporary while loading
-                        .error(R.drawable.image_not_found)         // default if fails
+                        .placeholder(R.drawable.placeholder_image)
+                        .error(R.drawable.image_not_found)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .centerCrop())
                 .into(holder.image);
@@ -98,3 +125,4 @@ public class BookAmenetyAdapter extends RecyclerView.Adapter<BookAmenetyAdapter.
         }
     }
 }
+

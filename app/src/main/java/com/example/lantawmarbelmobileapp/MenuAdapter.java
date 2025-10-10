@@ -41,7 +41,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         holder.price.setText("₱" + menu.getPrice());
         holder.status.setText("Status: " + menu.getStatus());
 
-        String imageUrl = menu.getImage();
+        String imageUrl = menu.getImageUrl();
 
         Glide.with(context)
                 .load(imageUrl != null && !imageUrl.isEmpty() ? imageUrl : null)

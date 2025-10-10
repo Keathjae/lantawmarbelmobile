@@ -18,7 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class BookingDateFragment extends Fragment {
 
-    private BookingViewModel viewModel;
+    private BookingViewModel bookingViewModel;
     TextView startDateInput;
     TextView endDateInput;
     @Nullable
@@ -26,7 +26,8 @@ public class BookingDateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking_date, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
+        bookingViewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
+
 
         EditText child = view.findViewById(R.id.childGuestInput);
         EditText adult = view.findViewById(R.id.adultGuestInput);
@@ -35,16 +36,16 @@ public class BookingDateFragment extends Fragment {
         endDateInput = view.findViewById(R.id.endDateInput);
 
         // 🔄 Observe LiveData (auto-update if data changes)
-        viewModel.getBookingStart().observe(getViewLifecycleOwner(), value -> {
+        bookingViewModel.getBookingStart().observe(getViewLifecycleOwner(), value -> {
             if (value != null) startDateInput.setText(value);
         });
-        viewModel.getBookingEnd().observe(getViewLifecycleOwner(), value -> {
+        bookingViewModel.getBookingEnd().observe(getViewLifecycleOwner(), value -> {
             if (value != null) endDateInput.setText(value);
         });
-        viewModel.getChildGuest().observe(getViewLifecycleOwner(), value -> {
+        bookingViewModel.getChildGuest().observe(getViewLifecycleOwner(), value -> {
             if (value != null) child.setText(String.valueOf(value));
         });
-        viewModel.getAdultGuest().observe(getViewLifecycleOwner(), value -> {
+        bookingViewModel.getAdultGuest().observe(getViewLifecycleOwner(), value -> {
             if (value != null) adult.setText(String.valueOf(value));
         });
 
@@ -55,19 +56,19 @@ public class BookingDateFragment extends Fragment {
 
         // 👉 Save values into ViewModel before moving to next tab
         nextBtn.setOnClickListener(v -> {
-            viewModel.setBookingStart(startDateInput.getText().toString());
-            viewModel.setBookingEnd(endDateInput.getText().toString());
+            bookingViewModel.setBookingStart(startDateInput.getText().toString());
+            bookingViewModel.setBookingEnd(endDateInput.getText().toString());
 
             try {
-                viewModel.setChildGuest(Integer.parseInt(child.getText().toString()));
+                bookingViewModel.setChildGuest(Integer.parseInt(child.getText().toString()));
             } catch (NumberFormatException e) {
-                viewModel.setChildGuest(0);
+                bookingViewModel.setChildGuest(0);
             }
 
             try {
-                viewModel.setAdultGuest(Integer.parseInt(adult.getText().toString()));
+                bookingViewModel.setAdultGuest(Integer.parseInt(adult.getText().toString()));
             } catch (NumberFormatException e) {
-                viewModel.setAdultGuest(0);
+                bookingViewModel.setAdultGuest(0);
             }
 
             ViewPager2 pager = getActivity().findViewById(R.id.viewPager);

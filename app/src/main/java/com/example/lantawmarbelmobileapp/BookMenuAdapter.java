@@ -1,11 +1,11 @@
 package com.example.lantawmarbelmobileapp;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,20 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookMenuAdapter extends RecyclerView.Adapter<BookMenuAdapter.MenuViewHolder> {
+
     private Context context;
     private List<Menu> menuList;
-
-       private List<Menu> selectedMenu = new ArrayList<>();
+    private List<Menu> selectedMenu = new ArrayList<>();
     private OnMenuSelectedListener listener;
 
     public interface OnMenuSelectedListener {
         void onMenuSelected(List<Menu> selected);
     }
 
-    public BookMenuAdapter(Context context,List<Menu> menuItems, OnMenuSelectedListener listener) {
+    public BookMenuAdapter(Context context, List<Menu> menuItems, OnMenuSelectedListener listener) {
         this.menuList = menuItems;
         this.listener = listener;
-        this.context=context;
+        this.context = context;
+    }
+
+    public void setSelectedMenu(List<Menu> selected) {
+        this.selectedMenu.clear();
+        if (selected != null) this.selectedMenu.addAll(selected);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,30 +53,52 @@ public class BookMenuAdapter extends RecyclerView.Adapter<BookMenuAdapter.MenuVi
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         Menu menu = menuList.get(position);
-        holder.checkBox.setText("Avail");
 
         holder.name.setText(menu.getMenuname());
         holder.type.setText("Type: " + menu.getItemtype());
         holder.price.setText("₱" + menu.getPrice());
-        holder.status.setText("Status: " + menu.getStatus());
-
-        String imageUrl = menu.getImage();
 
         Glide.with(context)
-                .load(imageUrl != null && !imageUrl.isEmpty() ? imageUrl : null)
+                .load(menu.getImage() != null && !menu.getImage().isEmpty() ? menu.getImage() : null)
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.placeholder_image)
                         .error(R.drawable.image_not_found)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .centerCrop())
                 .into(holder.image);
+
+        // restore checkbox and quantity
+        holder.checkBox.setOnCheckedChangeListener(null);
+        holder.checkBox.setChecked(menu.isSelected());
+        holder.qtyInput.setText(String.valueOf(menu.getqty() > 0 ? menu.getqty() : 1));
+
+        // checkbox listener
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            menu.setSelected(isChecked);
             if (isChecked) {
+                if (menu.getqty() <= 0) {
+                    menu.setqty(1);
+                    holder.qtyInput.setText("1");
+                }
                 if (!selectedMenu.contains(menu)) selectedMenu.add(menu);
             } else {
                 selectedMenu.remove(menu);
             }
-            listener.onMenuSelected(selectedMenu);
+            listener.onMenuSelected(new ArrayList<>(selectedMenu));
+        });
+
+        // quantity changes listener
+        holder.qtyInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus && holder.checkBox.isChecked()) {
+                try {
+                    int qty = Integer.parseInt(holder.qtyInput.getText().toString());
+                    if (qty > 0) menu.setqty(qty);
+                    else menu.setqty(1);
+                } catch (NumberFormatException e) {
+                    menu.setqty(1);
+                }
+                listener.onMenuSelected(new ArrayList<>(selectedMenu));
+            }
         });
     }
 
@@ -82,7 +110,8 @@ public class BookMenuAdapter extends RecyclerView.Adapter<BookMenuAdapter.MenuVi
     static class MenuViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
         ImageView image;
-        TextView name, type, price, status;
+        TextView name, type, price;
+        EditText qtyInput;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,7 +120,7 @@ public class BookMenuAdapter extends RecyclerView.Adapter<BookMenuAdapter.MenuVi
             name = itemView.findViewById(R.id.menuName);
             type = itemView.findViewById(R.id.menuType);
             price = itemView.findViewById(R.id.menuPrice);
-            status = itemView.findViewById(R.id.menuStatus);
+            qtyInput = itemView.findViewById(R.id.menuQtyInput);
         }
     }
 }

@@ -1,80 +1,47 @@
 package com.example.lantawmarbelmobileapp;
 
+import java.io.Serializable;
 
-public class Cottage {
+public class Cottage implements Serializable {
     private int cottageID;
-    private String cottageName;
+    private String cottagename;
     private int capacity;
     private String image;
-    private double price;
+    private String image_url;
+    private String price;
     private String status;
     private int amenityID;
-
-    private Amenity amenity; // Relationship (optional)
+    private boolean selected;
+    private Amenity amenity; // optional relationship
 
     // --- Getters & Setters ---
-    public int getCottageID() {
-        return cottageID;
-    }
+    public int getCottageID() { return cottageID; }
+    public void setCottageID(int cottageID) { this.cottageID = cottageID; }
 
-    public void setCottageID(int cottageID) {
-        this.cottageID = cottageID;
-    }
+    public String getCottagename() { return cottagename; }
+    public void setCottagename(String cottagename) { this.cottagename = cottagename; }
 
-    public String getCottageName() {
-        return cottageName;
-    }
+    public int getCapacity() { return capacity; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
 
-    public void setCottageName(String cottageName) {
-        this.cottageName = cottageName;
-    }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
-    public int getCapacity() {
-        return capacity;
-    }
+    public String getImage_url() { return image_url; }
+    public void setImage_url(String image_url) { this.image_url = image_url; }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
+    public String getPrice() { return price; }
+    public void setPrice(String price) { this.price = price; }
 
-    public String getImage() {
-        return image;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+    public int getAmenityID() { return amenityID; }
+    public void setAmenityID(int amenityID) { this.amenityID = amenityID; }
 
-    public double getPrice() {
-        return price;
-    }
+    public boolean isSelected() { return selected; }
+    public void setSelected(boolean selected) { this.selected = selected; }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public int getAmenityID() {
-        return amenityID;
-    }
-
-    public void setAmenityID(int amenityID) {
-        this.amenityID = amenityID;
-    }
-
-    public Amenity getAmenity() {
-        return amenity;
-    }
-
-    public void setAmenity(Amenity amenity) {
-        this.amenity = amenity;
-    }
+    public Amenity getAmenity() { return amenity; }
+    public void setAmenity(Amenity amenity) { this.amenity = amenity; }
 }
-

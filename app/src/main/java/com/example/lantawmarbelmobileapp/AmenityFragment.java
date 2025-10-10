@@ -56,7 +56,7 @@ public class AmenityFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Amenity>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load amenities", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Failed to load amenities", Toast.LENGTH_SHORT).show();
             }
         });
     }

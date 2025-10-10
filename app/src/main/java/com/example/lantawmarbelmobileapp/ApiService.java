@@ -4,6 +4,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -46,18 +47,26 @@ public interface ApiService {
             @Part MultipartBody.Part validID
     );
     @GET("bookings/guest/{guestID}")
-    Call<List<Booking>> getBookingsForGuest(@Path("guestID") int guestID);
+    Call<List<BookingRequest>> getBookingsForGuest(@Path("guestID") int guestID);
+
     @GET("bookings/{id}")
-    Call<Booking> getBookingbyId(@Path("id") int id);
+    Call<BookingRequest> getBookingbyId(@Path("id") int id);
 
     @POST("bookings")
-    Call<BookingRequest> storeBooking(@Body BookingRequest booking);
+    Call<BookingRequest> storeBooking(@Body BookingDTO booking);
     @PUT("bookings/{id}")
-    Call<BookingRequest> updateBooking(@Path("id") int id, @Body BookingRequest booking);
+    Call<BookingRequest> updateBooking(@Path("id") int id, @Body BookingDTO booking);
 
 
     @GET("chats")
     Call<List<Chat>> getChats();
+
+    @POST("save-fcm-token")
+    Call<Void> sendFcmToken(
+            @Header("Authorization") String authHeader,
+            @Body Map<String, Object> body
+    );
+
 
     @POST("chats")
     Call<Chat> sendChat(@Body Chat chat);

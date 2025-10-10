@@ -3,6 +3,7 @@ package com.example.lantawmarbelmobileapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -15,7 +16,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import com.google.firebase.messaging.FirebaseMessaging;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,6 +114,22 @@ public class Go_To_Login_Signup extends AppCompatActivity {
                     }
 
                     editor.apply();
+                    FirebaseMessaging.getInstance().getToken()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    String fcmToken = task.getResult();
+                                    Log.d("FCM", "Got FCM token after login: " + fcmToken);
+
+                                    int userId = (loginResponse.user.id);
+
+                                    String role = loginResponse.user.role;
+                                    String authToken = loginResponse.token;
+
+                                    MyFirebaseMessagingService.sendTokenToServer(fcmToken, userId, role, authToken);
+                                } else {
+                                    Log.w("FCM", "Fetching FCM token failed", task.getException());
+                                }
+                            });
 
                     Toast.makeText(Go_To_Login_Signup.this, "Welcome, " + welcomeName + "!", Toast.LENGTH_LONG).show();
 
