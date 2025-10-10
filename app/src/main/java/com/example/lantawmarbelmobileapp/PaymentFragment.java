@@ -1,6 +1,5 @@
 package com.example.lantawmarbelmobileapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -40,10 +39,8 @@ public class PaymentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
-        // ViewModel
         viewModel = new ViewModelProvider(requireActivity()).get(BookingViewModel.class);
 
-        // UI Elements
         totalCostText = view.findViewById(R.id.totalCostText);
         paymentAmountInput = view.findViewById(R.id.paymentAmountInput);
         paymentRefInput = view.findViewById(R.id.paymentRefInput);
@@ -55,26 +52,21 @@ public class PaymentFragment extends Fragment {
         paymentAdapter = new PaymentAdapter();
         paymentRecyclerView.setAdapter(paymentAdapter);
 
-        // Observe Total Price
-        viewModel.getTotalPrice().observe(getViewLifecycleOwner(), price -> {
-            if (price != null) {
-                totalCostText.setText("Total: ₱" + price);
+        // ✅ Just observe booking, ViewModel handles totalPrice
+        viewModel.getBooking().observe(getViewLifecycleOwner(), booking -> {
+            if (booking != null) {
+                totalCostText.setText("Total: ₱" +
+                        String.format(Locale.getDefault(), "%.2f", booking.totalPrice));
+
+                if (booking.billing != null && booking.billing.payments != null) {
+                    paymentAdapter.setPayments(booking.billing.payments);
+                } else {
+                    paymentAdapter.setPayments(new ArrayList<>());
+                }
             }
         });
 
-        // Observe Payments
-        viewModel.getBilling().observe(getViewLifecycleOwner(), billing -> {
-            if (billing != null && billing.payments != null) {
-                paymentAdapter.setPayments(billing.payments);
-            } else {
-                paymentAdapter.setPayments(null); // fall back to empty
-            }
-        });
-
-        // Add Payment
         addPaymentButton.setOnClickListener(v -> addPayment());
-
-        // Submit Booking
         submitBookingButton.setOnClickListener(v -> submitBooking());
 
         return view;
@@ -90,60 +82,61 @@ public class PaymentFragment extends Fragment {
         }
 
         double amount = Double.parseDouble(amountStr);
+        String formattedDate = DateUtils.toIsoDate(new Date());
 
-        // ✅ Format date to MySQL DATETIME (yyyy-MM-dd HH:mm:ss)
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String formattedDate = sdf.format(new Date());
-
-        // ✅ use nested BookingViewModel.Payment
-        Payment payment = new Payment();
-        payment.paymentID = 0; // backend will assign
-        payment.totalTender = amount;
-        payment.totalChange = 0;
-        payment.datePayment = formattedDate; // correct format
+        BookingDTO.PaymentDTO payment = new BookingDTO.PaymentDTO();
+        payment.paymentID = 0;
+        payment.totaltender = amount;
+        payment.totalchange = 0;
+        payment.datePayment = formattedDate;
         payment.refNumber = refNumber;
 
         viewModel.addPayment(payment);
 
-        // clear inputs
         paymentAmountInput.setText("");
         paymentRefInput.setText("");
     }
 
     private void submitBooking() {
-        BookingRequest bookingDto = BookingMapper.fromViewModel(viewModel);
+        BookingDTO bookingDto = viewModel.getBooking().getValue();
+
+        if (bookingDto == null) {
+            Toast.makeText(getContext(), "Booking data is empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // ✅ Ensure booking meta is filled
+        bookingDto.guestAmount = bookingDto.adultGuest + bookingDto.childGuest;
+        bookingDto.bookingCreated = DateUtils.toIsoDateTime(new Date());
+        bookingDto.bookingType = "Booking";
+        bookingDto.status = "Pending";
+
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<BookingRequest> call;
 
         if (bookingDto.bookingID > 0) {
-            // ✅ Existing booking → update
-            apiService.updateBooking(bookingDto.bookingID, bookingDto).enqueue(new Callback<BookingRequest>() {
-                @Override
-                public void onResponse(Call<BookingRequest> call, Response<BookingRequest> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getContext(), "✅ Booking updated!", Toast.LENGTH_SHORT).show();
-                        requireActivity().finish(); // close BookingActivity
-                    }
-                }
-                @Override
-                public void onFailure(Call<BookingRequest> call, Throwable t) {
-                    Toast.makeText(getContext(), "🚨 Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            call = apiService.updateBooking(bookingDto.bookingID, bookingDto);
         } else {
-            // ✅ New booking → store
-            apiService.storeBooking(bookingDto).enqueue(new Callback<BookingRequest>() {
-                @Override
-                public void onResponse(Call<BookingRequest> call, Response<BookingRequest> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getContext(), "✅ Booking stored!", Toast.LENGTH_SHORT).show();
-                        requireActivity().finish(); // close BookingActivity
-                    }
-                }
-                @Override
-                public void onFailure(Call<BookingRequest> call, Throwable t) {
-                    Toast.makeText(getContext(), "🚨 Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
+            call = apiService.storeBooking(bookingDto);
         }
+
+        call.enqueue(new Callback<BookingRequest>() {
+            @Override
+            public void onResponse(Call<BookingRequest> call, Response<BookingRequest> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String msg = bookingDto.bookingID > 0 ? "✅ Booking updated!" : "✅ Booking stored!";
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                    requireActivity().finish();
+                } else {
+                    Toast.makeText(getContext(), "❌ Failed: " + response.code() + " " + response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookingRequest> call, Throwable t) {
+                Toast.makeText(getContext(), "🚨 Network error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+            }
+        });
     }
 }

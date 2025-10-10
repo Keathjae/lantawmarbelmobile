@@ -61,16 +61,15 @@ public class BookingListActivity extends AppCompatActivity {
 
         fetchBookings();
     }
-
     private void fetchBookings() {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<List<Booking>> call = apiService.getBookingsForGuest(getGuestID());
+        Call<List<BookingRequest>> call = apiService.getBookingsForGuest(getGuestID());
 
-        call.enqueue(new Callback<List<Booking>>() {
+        call.enqueue(new Callback<List<BookingRequest>>() {
             @Override
-            public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
+            public void onResponse(Call<List<BookingRequest>> call, Response<List<BookingRequest>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Booking> bookings = response.body();
+                    List<BookingRequest> bookings = response.body();
 
                     if (bookings.isEmpty()) {
                         emptyText.setVisibility(View.VISIBLE);
@@ -79,10 +78,9 @@ public class BookingListActivity extends AppCompatActivity {
                         emptyText.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
 
-                        // ✅ Attach adapter to RecyclerView
                         adapter = new BookingAdapter(bookings, booking -> {
-                            Intent intent = new Intent(BookingListActivity.this, BookingActivity.class);
-                            intent.putExtra("bookingID", booking.bookingID); // pass bookingID
+                            Intent intent = new Intent(BookingListActivity.this, BookingDetailActivity.class);
+                            intent.putExtra("booking_id", booking.bookingID); // pass entire object
                             startActivity(intent);
                         });
                         recyclerView.setAdapter(adapter);
@@ -95,7 +93,7 @@ public class BookingListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Booking>> call, Throwable t) {
+            public void onFailure(Call<List<BookingRequest>> call, Throwable t) {
                 emptyText.setText("Unable to load bookings.");
                 emptyText.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
@@ -103,9 +101,9 @@ public class BookingListActivity extends AppCompatActivity {
         });
     }
 
-    private void openBookingDetail(Booking booking) {
-        Intent intent = new Intent(this, BookingActivity.class);
-        intent.putExtra("booking", booking);
-        startActivity(intent);
-    }
+//    private void openBookingDetail(BookingRequest booking) {
+//        Intent intent = new Intent(this, BookingActivity.class);
+//        intent.putExtra("booking", booking);
+//        startActivity(intent);
+//    }
 }

@@ -197,7 +197,6 @@ public class Go_To_SignUp_Button extends AppCompatActivity {
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
                 signUpButton.setEnabled(true);
                 signUpButton.setText("Sign Up");
-
                 if (response.isSuccessful() && response.body() != null && response.body().success) {
                     Toast.makeText(Go_To_SignUp_Button.this, "Account created! Please login.", Toast.LENGTH_LONG).show();
                     navigateToLogin();

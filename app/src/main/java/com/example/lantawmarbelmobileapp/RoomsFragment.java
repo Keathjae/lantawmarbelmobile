@@ -55,7 +55,7 @@ public class RoomsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to load rooms", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Failed to load rooms", Toast.LENGTH_SHORT).show();
             }
         });
     }

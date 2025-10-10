@@ -42,7 +42,7 @@ public class AmenityAdapter extends RecyclerView.Adapter<AmenityAdapter.AmenityV
         holder.adultPrice.setText("Adult: ₱" + amenity.getAdultprice());
         holder.childPrice.setText("Child: ₱" + amenity.getChildprice());
 
-        String imageUrl = amenity.getImage();
+        String imageUrl = amenity.getImage_url();
 
         // Load image safely with placeholder and error image
         Glide.with(context)

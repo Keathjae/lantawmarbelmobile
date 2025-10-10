@@ -16,22 +16,41 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class BookCottageAdapter extends RecyclerView.Adapter<BookCottageAdapter.CottageViewHolder> {
 
     private Context context;
-    private List<Cottage> cottages;
-    private List<Cottage> selectedCottages = new ArrayList<Cottage>();
+    private List<Cottage> cottages = new ArrayList<>();
+    private List<Integer> selectedCottageIds = new ArrayList<>();
     private OnCottagesSelectedListener listener;
 
     public interface OnCottagesSelectedListener {
-        void onCottagesSelected(List<Cottage> selected);
+        void onCottagesSelected(List<Integer> selectedIds);
     }
 
-    public BookCottageAdapter(Context context,List<Cottage> cottages, OnCottagesSelectedListener listener) {
-        this.context=context;
-        this.cottages = cottages;
+    public BookCottageAdapter(Context context, OnCottagesSelectedListener listener) {
+        this.context = context;
         this.listener = listener;
+    }
+
+    public void updateCottages(List<Cottage> newCottages, List<Integer> preselectedIds) {
+        this.cottages.clear();
+        if (newCottages != null) this.cottages.addAll(newCottages);
+
+        this.selectedCottageIds.clear();
+        if (preselectedIds != null) this.selectedCottageIds.addAll(preselectedIds);
+
+        notifyDataSetChanged();
+    }
+
+    public void setSelectedCottages(List<Integer> selectedIds) {
+        this.selectedCottageIds.clear();
+        if (selectedIds != null) this.selectedCottageIds.addAll(selectedIds);
+        notifyDataSetChanged();
+    }
+
+    // ✅ getter for cottages so Fragment can access them
+    public List<Cottage> getCottages() {
+        return cottages;
     }
 
     @NonNull
@@ -45,25 +64,29 @@ public class BookCottageAdapter extends RecyclerView.Adapter<BookCottageAdapter.
     @Override
     public void onBindViewHolder(@NonNull CottageViewHolder holder, int position) {
         Cottage cottage = cottages.get(position);
-        holder.checkBox.setText("Avail");
 
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                if (!selectedCottages.contains(cottage)) selectedCottages.add(cottage);
-            } else {
-                selectedCottages.remove(cottage);
-            }
-            listener.onCottagesSelected(selectedCottages);
-        });
-        holder.name.setText(cottage.getCottageName());
-        holder.type.setText(cottage.getCapacity()+" Pax");
+        holder.name.setText(cottage.getCottagename());
+        holder.type.setText(cottage.getCapacity() + " Pax");
         holder.price.setText("₱" + cottage.getPrice());
         holder.status.setText("Status: " + cottage.getStatus());
 
-        String imageUrl = cottage.getImage();
+        // ✅ tie checkbox to selected list
+        holder.checkBox.setOnCheckedChangeListener(null);
+        holder.checkBox.setChecked(selectedCottageIds.contains(cottage.getCottageID()));
+
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                if (!selectedCottageIds.contains(cottage.getCottageID())) {
+                    selectedCottageIds.add(cottage.getCottageID());
+                }
+            } else {
+                selectedCottageIds.remove((Integer) cottage.getCottageID());
+            }
+            listener.onCottagesSelected(new ArrayList<>(selectedCottageIds));
+        });
 
         Glide.with(context)
-                .load(imageUrl != null && !imageUrl.isEmpty() ? imageUrl : null)
+                .load(cottage.getImage_url())
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.placeholder_image)
                         .error(R.drawable.image_not_found)
@@ -93,4 +116,3 @@ public class BookCottageAdapter extends RecyclerView.Adapter<BookCottageAdapter.
         }
     }
 }
-

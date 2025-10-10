@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("com.google.devtools.ksp")// ✅ this is enough, don’t use id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 android {
     namespace = "com.example.lantawmarbelmobileapp"
@@ -68,6 +69,11 @@ dependencies {
     implementation ("androidx.camera:camera-camera2:1.3.3")
     implementation ("androidx.camera:camera-lifecycle:1.3.3")
     implementation ("androidx.camera:camera-view:1.3.3")
+    implementation (platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation ("com.google.firebase:firebase-messaging")
+
+
+    implementation("com.google.firebase:firebase-analytics")
 }
 
 // Optional: Fix for kapt + JDK 17 module access

@@ -1,6 +1,5 @@
 package com.example.lantawmarbelmobileapp;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder> {
 
-    private List<Payment> payments = new ArrayList<>(); // never null
+    private List<BookingDTO.PaymentDTO> payments = new ArrayList<>(); // never null
 
-    public void setPayments(List<Payment> payments) {
+    public void setPayments(List<BookingDTO.PaymentDTO> payments) {
         if (payments != null) {
             this.payments = payments;
         } else {
@@ -34,14 +34,14 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
 
     @Override
     public void onBindViewHolder(@NonNull PaymentViewHolder holder, int position) {
-        Payment payment = payments.get(position);
-        holder.text1.setText("₱" + payment.totalTender + " | Ref: " + payment.refNumber);
+        BookingDTO.PaymentDTO payment = payments.get(position);
+        holder.text1.setText("₱" + payment.totaltender + " | Ref: " + payment.refNumber);
         holder.text2.setText("Date: " + payment.datePayment);
     }
 
     @Override
     public int getItemCount() {
-        return payments != null ? payments.size() : 0; // safe check
+        return payments.size(); // safe, payments is never null
     }
 
     static class PaymentViewHolder extends RecyclerView.ViewHolder {
