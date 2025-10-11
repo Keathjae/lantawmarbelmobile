@@ -16,12 +16,14 @@ public class TabPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new RoomsFragment();
+                return new WelcomeFragment(); // New tab for welcome
             case 1:
-                return new AmenityFragment();
+                return new RoomsFragment();
             case 2:
-                return new CottageFragment();
+                return new AmenityFragment();
             case 3:
+                return new CottageFragment();
+            case 4:
              return new MenuFragment();
             default:
                 return new RoomsFragment();
@@ -30,6 +32,6 @@ public class TabPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4; // number of tabs
+        return 5; // number of tabs
     }
 }

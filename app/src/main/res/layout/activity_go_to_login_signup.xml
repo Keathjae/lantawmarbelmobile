@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Please login or register to continue"
-        android:textColor="#666666"
+        android:text="Please login or sign-up to continue"
+        android:textColor="#FF9800"
         android:textSize="17sp"
         android:textAlignment="center"
         android:layout_marginBottom="24dp" />

@@ -52,4 +52,11 @@
         <item name="android:textColorSecondary">#FFFFFF</item>
     </style>
 
+    <style name="CustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">9sp</item>  <!-- adjust size -->
+        <item name="android:textStyle">bold</item> <!-- optional -->
+        <item name="android:textColor">#007F69</item> <!-- optional -->
+    </style>
+
+
 </resources>

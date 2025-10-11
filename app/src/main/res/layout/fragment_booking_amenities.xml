@@ -2,10 +2,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Select Amenity"/>
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/amenitiesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Amenities"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:gravity="center"
+        android:padding="10dp"
+        android:fontFamily="serif"
+        android:background="@drawable/header_background"
+        android:elevation="4dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/amenitiesRecyclerView"
         android:layout_width="match_parent"

@@ -2,10 +2,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!-- Header -->
     <TextView
+        android:id="@+id/cottageTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Cottage"/>
+        android:text="Select Your Cottage"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:gravity="center"
+        android:padding="10dp"
+        android:fontFamily="serif"
+        android:background="@drawable/header_background"
+        android:elevation="4dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cottagesRecyclerView"

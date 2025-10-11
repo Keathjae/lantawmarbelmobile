@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:text="Select"
                     android:textStyle="bold"
-                    android:buttonTint="@color/purple_700"/>
+                    android:buttonTint="#FF9800"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

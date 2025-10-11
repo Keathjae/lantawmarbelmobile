@@ -5,7 +5,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
-    app:strokeColor="@color/purple_500"
+    app:strokeColor="#FFB952"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -17,64 +17,87 @@
         <!-- Booking Header -->
         <TextView
             android:id="@+id/txtBookingID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Booking #6"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/purple_700"/>
-
-        <TextView
-            android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pending"
+            android:text="Booking #6"
+            android:layout_marginStart="120dp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="@android:color/holo_orange_dark"
-            android:layout_marginBottom="8dp"/>
+            android:textColor="@color/teal_700" />
 
-        <!-- Guest Info -->
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:orientation="horizontal">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textSize="17dp"
+                android:textColor="@color/teal_700"
+                android:layout_marginEnd="5dp"
+                />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@android:color/holo_orange_dark"/>
+
+    </LinearLayout>
+
+        <TextView
                 android:id="@+id/txtGuestName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Guest: guest guest"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:text="👤 Guest: Juan Dela Cruz"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_email"
+        android:layout_marginBottom="15dp"
+        />
+        <TextView
+            android:id="@+id/txtGuestEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  guest@gmail.com"
+            android:textSize="15sp"
+            android:textColor="#2196F3"/>
 
-            <TextView
-                android:id="@+id/txtGuestEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="guest@gmail.com"
-                android:textSize="12sp"
-                android:textColor="@android:color/darker_gray"/>
-        </LinearLayout>
-
+    </LinearLayout>
         <!-- Dates -->
         <TextView
             android:id="@+id/txtDates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📅 2025-09-23 → 2025-09-23"
-            android:layout_marginTop="6dp"
-            android:textSize="14sp"/>
+            android:text="📅 Sep 23, 2025 → Sep 24, 2025"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textColor="#FF5722"
+            android:textSize="16sp"/>
 
         <!-- Guests -->
         <TextView
             android:id="@+id/txtGuests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="👨 2 Adults, 👦 3 Children"
+            android:text="👨 2 Adults   👦 3 Children"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
         <!-- Room Info -->
         <TextView
@@ -82,16 +105,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="🏨 Room: #101"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:layout_marginTop="4dp"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
 
         <!-- Total Price -->
         <TextView
             android:id="@+id/txtTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="💰 Total: ₱1500.00"
-            android:textSize="16sp"
+            android:text="💰 Total: ₱ 1500.00"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:textColor="@android:color/holo_green_dark"/>

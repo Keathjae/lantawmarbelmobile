@@ -116,9 +116,9 @@ public class BookingDetailActivity extends AppCompatActivity {
                     catch (NumberFormatException e) { e.printStackTrace(); }
                 }
                 String bookingDate = DateUtils.toIsoDate(room.bookingDate);
-                sbRooms.append(" - Room ID: ").append(room.roomID)
-                        .append(", Price: ").append(currencyFormat.format(price))
-                        .append(", Date: ").append(bookingDate).append("\n");
+                sbRooms.append(" - Room ID:  ").append(room.roomID).append("\n")
+                        .append(" - Price: ").append(currencyFormat.format(price)).append("\n")
+                        .append(" - Date: ").append(bookingDate).append("\n");
             }
             txtRooms.setText(sbRooms.toString());
         } else txtRooms.setText("Rooms: None");
@@ -133,9 +133,9 @@ public class BookingDetailActivity extends AppCompatActivity {
                     catch (NumberFormatException e) { e.printStackTrace(); }
                 }
                 String bookingDate = DateUtils.toIsoDate(cottage.bookingDate);
-                sbCottages.append(" - Cottage ID: ").append(cottage.cottageID)
-                        .append(", Price: ").append(currencyFormat.format(price))
-                        .append(", Date: ").append(bookingDate).append("\n");
+                sbCottages.append(" - Cottage ID:  ").append(cottage.cottageID).append("\n")
+                        .append(" - Price: ").append(currencyFormat.format(price)).append("\n")
+                        .append(" - Date: ").append(bookingDate).append("\n");
             }
             txtCottages.setText(sbCottages.toString());
         } else txtCottages.setText("Cottages: None");
@@ -150,10 +150,10 @@ public class BookingDetailActivity extends AppCompatActivity {
                     catch (NumberFormatException e) { e.printStackTrace(); }
                 }
                 String bookingDate = DateUtils.toIsoDate(menu.bookingDate);
-                sbMenus.append(" - Menu ID: ").append(menu.menu_id)
-                        .append(", Quantity: ").append(menu.quantity)
-                        .append(", Price: ").append(currencyFormat.format(price))
-                        .append(", Date: ").append(bookingDate).append("\n");
+                sbMenus.append(" - Menu ID:  ").append(menu.menu_id).append("\n")
+                        .append(" - Quantity: ").append(menu.quantity).append("\n")
+                        .append(" - Price: ").append(currencyFormat.format(price)).append("\n")
+                        .append(" - Date: ").append(bookingDate).append("\n");
             }
             txtMenus.setText(sbMenus.toString());
         } else txtMenus.setText("Menus: None");
@@ -182,11 +182,11 @@ public class BookingDetailActivity extends AppCompatActivity {
                     double tendered = payment.totalTender;
                     double change = payment.totalChange;
                     String datePayment = formatDateSafe(payment.datePayment);
-                    sbPayments.append("   • Payment ID: ").append(payment.paymentID)
-                            .append(", Tendered: ").append(currencyFormat.format(tendered))
-                            .append(", Change: ").append(currencyFormat.format(change))
-                            .append(", Date: ").append(datePayment)
-                            .append(", Ref: ").append(payment.refNumber).append("\n");
+                    sbPayments.append("  - Payment ID:").append(payment.paymentID).append("\n")
+                            .append(" - Tendered: ").append(currencyFormat.format(tendered)).append("\n")
+                            .append(" - Change: ").append(currencyFormat.format(change)).append("\n")
+                            .append(" - Date: ").append(datePayment).append("\n")
+                            .append(" - Ref: ").append(payment.refNumber).append("\n");
                 }
                 txtPayments.setText(sbPayments.toString());
             } else txtPayments.setText("Payments: None");

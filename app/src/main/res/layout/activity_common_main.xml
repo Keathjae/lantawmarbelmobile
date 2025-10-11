@@ -15,13 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
-        android:background="#007F69"
+        android:background="#08900D"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp">
         <ImageView
             android:id="@+id/profileIcon"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="60dp"
             android:src="@drawable/lantaw_marbel_logo_trans"
             android:contentDescription="Logo"
             android:adjustViewBounds="true"
@@ -74,7 +74,9 @@
         app:tabIndicatorColor="#007F69"
         app:tabSelectedTextColor="#007F69"
         app:tabTextColor="#8e8e8e"
-        app:tabMode="fixed">
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/CustomTabText"
+        >
 
     </com.google.android.material.tabs.TabLayout>
     <!-- ViewPager2 -->
@@ -84,5 +86,5 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"/>
 
-    <!-- Bottom Navigation -->
+
 </LinearLayout>

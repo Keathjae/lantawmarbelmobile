@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/bg_staff_message"
+        android:background="@drawable/card_gradient_orange"
         android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -22,7 +22,7 @@
             android:id="@+id/textDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <ImageView

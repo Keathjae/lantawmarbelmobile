@@ -4,12 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Inquiry">
+    <!-- 🔹 Top Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#095908"
+        android:gravity="center_vertical"
+        android:padding="12dp">
 
-</TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inquiry"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_weight="1"
@@ -25,13 +37,20 @@
             android:id="@+id/inputMessage"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Type a message"/>
+            android:layout_height="48dp"
+            android:hint="Type a message"
+            android:background="@drawable/bg_chat_input"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@android:color/black"
+            android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"/>
+            android:text="Send"
+            android:backgroundTint="#FF9800"
+            />
     </LinearLayout>
 </LinearLayout>
