@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView notificationBadge;
 
     private ImageButton homeButton;
+    private ImageButton dayTourButton;
     private ImageButton inquiryButton;
     private ImageButton BookingButton;
 
@@ -122,6 +123,13 @@ int uid=getUserID();
                 startActivity(intent);
             }
         });
+       dayTourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, QRListActivity.class);
+                startActivity(intent);
+            }
+        });
 inquiryButton.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
@@ -138,7 +146,7 @@ inquiryButton.setOnClickListener(new View.OnClickListener() {
         discountCard = findViewById(R.id.discountCard);
 //        bookCard = findViewById(R.id.BookCard);
 //        foodCard = findViewById(R.id.foodCard);
-//        dayTourCard = findViewById(R.id.dayTourCard);
+  dayTourButton = findViewById(R.id.daytourButton);
 //        viewQRCard = findViewById(R.id.ViewQRCard);
 
         // Text Views and Images

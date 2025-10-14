@@ -81,4 +81,7 @@ public interface ApiService {
 
     @GET("feedback/{guestID}")
     Call<FeedbackListResponse> getFeedbackList(@Path("guestID") int guestID);
+
+    @GET("qrcodeByGuest/{guestID}")
+    Call<ApiResponse<List<QRCode>>> getQRCodesByGuest(@Path("guestID") int guestID);
 }
