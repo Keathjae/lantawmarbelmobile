@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF_NAME = "LantawMarbelPrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_USER_NAME = "KEY_USER_NAME";
-    private static final String KEY_GUEST_ID = "guestID";
-    private static final String KEY_GUEST_EMAIL = "guestEmail";
+    private static final String KEY_USER_ID = "userID";
 
 
 
@@ -68,13 +67,10 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getString(KEY_USER_NAME, "Guest");
     }
 
-    private int getGuestID() {
-        return sharedPreferences.getInt(KEY_GUEST_ID, -1);
+    private int getUserID() {
+        return sharedPreferences.getInt(KEY_USER_ID, -1);
     }
 
-    private String getGuestEmail() {
-        return sharedPreferences.getString(KEY_GUEST_EMAIL, "");
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +81,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
-
+int uid=getUserID();
         // Show logged-in user's name
         if (userProfile != null && isUserLoggedIn()) {
             userProfile.setText(getGuestFullName());
         }
+        notificationBell=findViewById(R.id.notificationBell);
+        notificationBell.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+            startActivity(intent);
+        });
 
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);

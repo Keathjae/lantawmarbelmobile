@@ -48,6 +48,8 @@ public interface ApiService {
     );
     @GET("bookings/guest/{guestID}")
     Call<List<BookingRequest>> getBookingsForGuest(@Path("guestID") int guestID);
+    @GET("notifications/{user_id}")
+    Call<List<NotificationModel>> getNotifications(@Path("user_id") int userId);
 
     @GET("bookings/{id}")
     Call<BookingRequest> getBookingbyId(@Path("id") int id);

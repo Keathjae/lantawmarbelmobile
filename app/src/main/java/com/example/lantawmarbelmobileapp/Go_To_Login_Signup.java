@@ -112,8 +112,7 @@ public class Go_To_Login_Signup extends AppCompatActivity {
                         editor.putString(KEY_USER_NAME, staffFullName);
                         welcomeName = loginResponse.profile.firstname;
                     }
-
-                    editor.apply();
+                    editor.putInt("userID", loginResponse.user.id);
                     FirebaseMessaging.getInstance().getToken()
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
@@ -130,6 +129,7 @@ public class Go_To_Login_Signup extends AppCompatActivity {
                                     Log.w("FCM", "Fetching FCM token failed", task.getException());
                                 }
                             });
+                    editor.apply();
 
                     Toast.makeText(Go_To_Login_Signup.this, "Welcome, " + welcomeName + "!", Toast.LENGTH_LONG).show();
 
