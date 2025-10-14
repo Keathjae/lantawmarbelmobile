@@ -20,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LantawMarbelMobileApp">
         <activity
+            android:name=".FeedbackListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
             android:name=".NotificationActivity"
             android:exported="false" />
 

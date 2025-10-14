@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     private String getGuestFullName() {
         return sharedPreferences.getString(KEY_USER_NAME, "Guest");
     }
@@ -89,6 +90,11 @@ int uid=getUserID();
         notificationBell=findViewById(R.id.notificationBell);
         notificationBell.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, NotificationActivity.class);
+            startActivity(intent);
+        });
+        expandIcon=findViewById(R.id.expandIcon);
+       expandIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FeedbackListActivity.class);
             startActivity(intent);
         });
 

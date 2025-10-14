@@ -75,4 +75,10 @@ public interface ApiService {
 
     @GET("chats/guest/{guestID}")
     Call<List<Chat>> getChatsForGuest(@Path("guestID") int guestID);
+
+    @POST("feedback")
+    Call<FeedbackResponse> sendFeedback(@Body Map<String, Object> body);
+
+    @GET("feedback/{guestID}")
+    Call<FeedbackListResponse> getFeedbackList(@Path("guestID") int guestID);
 }
