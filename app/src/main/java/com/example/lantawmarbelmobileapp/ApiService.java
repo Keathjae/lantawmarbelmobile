@@ -53,7 +53,8 @@ public interface ApiService {
 
     @GET("bookings/{id}")
     Call<BookingRequest> getBookingbyId(@Path("id") int id);
-
+    @GET("bookingsForEdit/{id}")
+    Call<BookingDTO> getBookingForEditbyId(@Path("id") int id);
     @POST("bookings")
     Call<BookingRequest> storeBooking(@Body BookingDTO booking);
     @PUT("bookings/{id}")

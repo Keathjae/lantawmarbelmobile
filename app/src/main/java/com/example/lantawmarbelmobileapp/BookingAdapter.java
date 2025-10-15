@@ -3,6 +3,7 @@ package com.example.lantawmarbelmobileapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingViewHolder> {
 
+
     private final List<BookingRequest> bookings;
     private final BookingClickListener listener;
 
     public interface BookingClickListener {
-        void onBookingClick(BookingRequest booking);
+        void onViewClick(BookingRequest booking);
+        void onRequestServiceClick(BookingRequest booking);
     }
 
     public BookingAdapter(List<BookingRequest> bookings, BookingClickListener listener) {
@@ -61,7 +64,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
         // Total
         holder.txtTotal.setText(" Total: ₱" + booking.totalPrice);
-
+        holder.btnView.setOnClickListener(v -> listener.onViewClick(booking));
+        holder.btnRequestService.setOnClickListener(v -> listener.onRequestServiceClick(booking));
         // Status color
         switch (booking.status.toLowerCase()) {
             case "pending":
@@ -80,7 +84,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         }
 
         // Click
-        holder.itemView.setOnClickListener(v -> listener.onBookingClick(booking));
+//        holder.itemView.setOnClickListener(v -> listener.onBookingClick(booking));
 
     }
 
@@ -91,7 +95,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
     static class BookingViewHolder extends RecyclerView.ViewHolder {
         TextView txtBookingID, txtStatus, txtGuestName, txtGuestEmail, txtDates, txtGuests, txtRooms, txtTotal;
-
+        Button btnView, btnRequestService;
         public BookingViewHolder(@NonNull View itemView) {
             super(itemView);
             txtBookingID = itemView.findViewById(R.id.txtBookingID);
@@ -100,6 +104,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             txtGuests = itemView.findViewById(R.id.txtGuests);
             txtRooms = itemView.findViewById(R.id.txtRooms);
             txtTotal = itemView.findViewById(R.id.txtTotal);
+            btnView = itemView.findViewById(R.id.btnView);
+            btnRequestService = itemView.findViewById(R.id.btnRequestService);
         }
     }
 }

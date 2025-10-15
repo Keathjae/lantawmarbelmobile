@@ -42,7 +42,7 @@ public class BookingActivity extends AppCompatActivity {
 
         bookingViewModel = new ViewModelProvider(this).get(BookingViewModel.class);
 
-        int bookingID = getIntent().getIntExtra("bookingID", -1);
+        int bookingID = getIntent().getIntExtra("booking_id", -1);
 
         if (bookingID != -1) {
             // Editing existing booking
@@ -88,19 +88,19 @@ public class BookingActivity extends AppCompatActivity {
 
     private void loadBookingData(int bookingID) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        apiService.getBookingbyId(bookingID).enqueue(new Callback<BookingRequest>() {
+        apiService.getBookingForEditbyId(bookingID).enqueue(new Callback<BookingDTO>() {
             @Override
-            public void onResponse(Call<BookingRequest> call, Response<BookingRequest> response) {
+            public void onResponse(Call<BookingDTO> call, Response<BookingDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    BookingRequest booking = response.body();
+                    BookingDTO booking = response.body();
 
                     // ✅ map booking → ViewModel so fragments display it
-//                    BookingMapper.toViewModel(booking, bookingViewModel);
+                    BookingMapper.toViewModel(booking, bookingViewModel);
                 }
             }
 
             @Override
-            public void onFailure(Call<BookingRequest> call, Throwable t) {
+            public void onFailure(Call<BookingDTO> call, Throwable t) {
                 Toast.makeText(BookingActivity.this, "❌ Failed to load booking", Toast.LENGTH_SHORT).show();
             }
         });

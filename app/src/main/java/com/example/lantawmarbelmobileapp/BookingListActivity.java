@@ -78,10 +78,22 @@ public class BookingListActivity extends AppCompatActivity {
                         emptyText.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
 
-                        adapter = new BookingAdapter(bookings, booking -> {
-                            Intent intent = new Intent(BookingListActivity.this, BookingDetailActivity.class);
-                            intent.putExtra("booking_id", booking.bookingID); // pass entire object
-                            startActivity(intent);
+                        adapter = new BookingAdapter(bookings, new BookingAdapter.BookingClickListener() {
+                            @Override
+                            public void onViewClick(BookingRequest booking) {
+                                // Open Booking Detail
+                                Intent intent = new Intent(BookingListActivity.this, BookingDetailActivity.class);
+                                intent.putExtra("booking_id", booking.bookingID);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onRequestServiceClick(BookingRequest booking) {
+                                // Open Booking Activity for Edit
+                                Intent intent = new Intent(BookingListActivity.this, BookingActivity.class);
+                                intent.putExtra("booking_id", booking.bookingID);
+                                startActivity(intent);
+                            }
                         });
                         recyclerView.setAdapter(adapter);
                     }
