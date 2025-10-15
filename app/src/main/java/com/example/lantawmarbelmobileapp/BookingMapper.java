@@ -1,9 +1,5 @@
 package com.example.lantawmarbelmobileapp;
 
-import com.example.lantawmarbelmobileapp.BookingDTO;
-import com.example.lantawmarbelmobileapp.BookingViewModel;
-import com.example.lantawmarbelmobileapp.Amenity;
-
 public class BookingMapper {
 
     public static void toViewModel(BookingDTO dto, BookingViewModel vm) {
@@ -29,26 +25,27 @@ public class BookingMapper {
         vm.setBookingStart(dto.bookingStart);
         vm.setBookingEnd(dto.bookingEnd);
 
-        // Bookings
+        // ✅ Use safe copies of lists before looping
         if (dto.roomBookings != null) {
-            for (BookingDTO.RoomBookingDTO r : dto.roomBookings) {
+            for (BookingDTO.RoomBookingDTO r : new java.util.ArrayList<>(dto.roomBookings)) {
                 vm.addRoomBooking(r);
             }
         }
+
         if (dto.cottageBookings != null) {
-            for (BookingDTO.CottageBookingDTO c : dto.cottageBookings) {
+            for (BookingDTO.CottageBookingDTO c : new java.util.ArrayList<>(dto.cottageBookings)) {
                 vm.addCottageBooking(c);
             }
         }
+
         if (dto.menuBookings != null) {
-            for (BookingDTO.MenuBookingDTO m : dto.menuBookings) {
+            for (BookingDTO.MenuBookingDTO m : new java.util.ArrayList<>(dto.menuBookings)) {
                 vm.addMenuBooking(m);
             }
         }
 
-        // Payments
         if (dto.billing != null && dto.billing.payments != null) {
-            for (BookingDTO.PaymentDTO p : dto.billing.payments) {
+            for (BookingDTO.PaymentDTO p : new java.util.ArrayList<>(dto.billing.payments)) {
                 vm.addPayment(p);
             }
         }

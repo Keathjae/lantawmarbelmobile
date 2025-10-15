@@ -41,7 +41,11 @@ public class BookingListActivity extends AppCompatActivity {
     private String getGuestEmail() {
         return sharedPreferences.getString(KEY_GUEST_EMAIL, "");
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchBookings(); // refresh every time you return to this screen
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
