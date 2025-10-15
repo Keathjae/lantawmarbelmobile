@@ -43,10 +43,15 @@ public class BookingDateFragment extends Fragment {
             if (value != null) endDateInput.setText(value);
         });
         bookingViewModel.getChildGuest().observe(getViewLifecycleOwner(), value -> {
-            if (value != null) child.setText(String.valueOf(value));
+            if (value != null && !child.getText().toString().equals(String.valueOf(value))) {
+                child.setText(String.valueOf(value));
+            }
         });
+
         bookingViewModel.getAdultGuest().observe(getViewLifecycleOwner(), value -> {
-            if (value != null) adult.setText(String.valueOf(value));
+            if (value != null && !adult.getText().toString().equals(String.valueOf(value))) {
+                adult.setText(String.valueOf(value));
+            }
         });
 
         // 📅 Show date picker
