@@ -76,6 +76,15 @@ public interface ApiService {
     @GET("chats/guest/{guestID}")
     Call<List<Chat>> getChatsForGuest(@Path("guestID") int guestID);
 
+    @POST("send-otp")
+    Call<ApiResponse> sendOTP(@Body Map<String, String> body);
+
+    @POST("verify-otp")
+    Call<ApiResponse> verifyOTP(@Body Map<String, String> body);
+
+    @POST("reset-password")
+    Call<ApiResponse> resetPassword(@Body Map<String, String> body);
+
     @POST("feedback")
     Call<FeedbackResponse> sendFeedback(@Body Map<String, Object> body);
 

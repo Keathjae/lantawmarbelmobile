@@ -46,10 +46,10 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 //        }
 
         // Dates
-        holder.txtDates.setText("📅 " + booking.bookingStart + " → " + booking.bookingEnd);
+        holder.txtDates.setText(" " + booking.bookingStart + " → " + booking.bookingEnd);
 
         // Guests
-        holder.txtGuests.setText("👨 " + booking.adultGuest + " Adults, 👦 " + booking.childGuest + " Children");
+        holder.txtGuests.setText(" " + booking.adultGuest + " Adults,  " + booking.childGuest + " Children");
 
         // Rooms (take first room if exists)
 //        if (booking.roomBookings != null && !booking.roomBookings.isEmpty()) {
@@ -60,7 +60,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 //        }
 
         // Total
-        holder.txtTotal.setText("💰 Total: ₱" + booking.totalPrice);
+        holder.txtTotal.setText(" Total: ₱" + booking.totalPrice);
 
         // Status color
         switch (booking.status.toLowerCase()) {
@@ -96,8 +96,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             super(itemView);
             txtBookingID = itemView.findViewById(R.id.txtBookingID);
             txtStatus = itemView.findViewById(R.id.txtStatus);
-            txtGuestName = itemView.findViewById(R.id.txtGuestName);
-            txtGuestEmail = itemView.findViewById(R.id.txtGuestEmail);
             txtDates = itemView.findViewById(R.id.txtDates);
             txtGuests = itemView.findViewById(R.id.txtGuests);
             txtRooms = itemView.findViewById(R.id.txtRooms);

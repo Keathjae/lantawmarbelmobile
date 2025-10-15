@@ -282,6 +282,16 @@
                 app:backgroundTint="#246205"
                 app:cornerRadius="8dp" />
 
+            <!-- Terms and Conditions -->
+            <CheckBox
+                android:id="@+id/termsCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I agree to the Terms and Conditions and Privacy Policy"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp" />
+
             <!-- Sign Up Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signUpButton"
@@ -292,6 +302,7 @@
                 android:textSize="16sp"
                 app:backgroundTint="#246205"
                 app:cornerRadius="8dp" />
+
 
             <!-- Already have account -->
             <LinearLayout
@@ -308,6 +319,8 @@
                     android:textColor="#B0B0B0"
                     android:textSize="14sp" />
 
+
+
                 <TextView
                     android:id="@+id/loginLink"
                     android:layout_width="wrap_content"
@@ -319,6 +332,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless" />
+
 
             </LinearLayout>
 

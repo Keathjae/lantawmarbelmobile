@@ -12,6 +12,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <!-- QR Scanner Border Overlay -->
+    <com.example.lantawmarbelmobileapp.ScannerOverlayView
+        android:id="@+id/scannerOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- Scan Result -->
     <TextView
         android:id="@+id/tvResult"

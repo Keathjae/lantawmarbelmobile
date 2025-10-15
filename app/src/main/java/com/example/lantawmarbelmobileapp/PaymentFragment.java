@@ -76,14 +76,37 @@ public class PaymentFragment extends Fragment {
         String amountStr = paymentAmountInput.getText().toString().trim();
         String refNumber = paymentRefInput.getText().toString().trim();
 
+        // 🧩 Validation 1: Empty fields
         if (TextUtils.isEmpty(amountStr) || TextUtils.isEmpty(refNumber)) {
             Toast.makeText(getContext(), "Enter both amount and reference number", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        double amount = Double.parseDouble(amountStr);
+        // 🧩 Validation 2: Valid numeric input
+        double amount;
+        try {
+            amount = Double.parseDouble(amountStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(getContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 🧩 Validation 3: Reference number must be exactly 13 characters long
+        if (refNumber.length() != 13) {
+            Toast.makeText(getContext(), "Reference number must be exactly 13 characters long", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 🧩 Validation 4: Reference number must contain digits only
+        if (!refNumber.matches("\\d+")) {
+            Toast.makeText(getContext(), "Reference number must contain digits only", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // 🧩 Format date
         String formattedDate = DateUtils.toIsoDate(new Date());
 
+        // 🧩 Create payment object
         BookingDTO.PaymentDTO payment = new BookingDTO.PaymentDTO();
         payment.paymentID = 0;
         payment.totaltender = amount;
@@ -91,11 +114,16 @@ public class PaymentFragment extends Fragment {
         payment.datePayment = formattedDate;
         payment.refNumber = refNumber;
 
+        // 🧩 Add payment to ViewModel
         viewModel.addPayment(payment);
 
+        // 🧩 Clear input fields
         paymentAmountInput.setText("");
         paymentRefInput.setText("");
+
+        Toast.makeText(getContext(), "Payment added successfully!", Toast.LENGTH_SHORT).show();
     }
+
 
     private void submitBooking() {
         BookingDTO bookingDto = viewModel.getBooking().getValue();

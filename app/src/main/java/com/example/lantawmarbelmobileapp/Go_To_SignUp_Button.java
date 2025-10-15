@@ -34,6 +34,11 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import android.widget.CheckBox;
+import androidx.appcompat.app.AlertDialog;
+import android.widget.CheckBox;
+import androidx.appcompat.app.AlertDialog;
+
 
 public class Go_To_SignUp_Button extends AppCompatActivity {
 
@@ -45,9 +50,11 @@ public class Go_To_SignUp_Button extends AppCompatActivity {
     private TextInputLayout usernameLayout, firstNameLayout, lastNameLayout, emailLayout, phoneLayout, passwordLayout, confirmPasswordLayout, birthdayLayout;
     private Spinner genderSpinner;
     private MaterialButton selectAvatarButton, selectIdButton, signUpButton;
+    private CheckBox termsCheckBox; // ✅ Added checkbox
 
     private Bitmap avatarBitmap, idBitmap;
     private String idOcrText;
+
 
     private ApiService apiService;
 
@@ -65,6 +72,7 @@ public class Go_To_SignUp_Button extends AppCompatActivity {
         passwordLayout = findViewById(R.id.passwordLayout);
         confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
         birthdayLayout = findViewById(R.id.birthdayLayout);
+
 
         // Inputs
         usernameInput = findViewById(R.id.usernameInput);
@@ -88,11 +96,25 @@ public class Go_To_SignUp_Button extends AppCompatActivity {
         selectIdButton = findViewById(R.id.selectIdButton);
         signUpButton = findViewById(R.id.signUpButton);
 
+        // ✅ Initialize terms checkbox
+        termsCheckBox = findViewById(R.id.termsCheckBox);
+
         apiService = ApiClient.getClient().create(ApiService.class);
 
         selectAvatarButton.setOnClickListener(v -> checkCameraPermission(REQUEST_AVATAR_CAPTURE));
         selectIdButton.setOnClickListener(v -> checkCameraPermission(REQUEST_ID_CAPTURE));
         signUpButton.setOnClickListener(v -> attemptSignup());
+
+        // ✅ Show Terms and Conditions when clicked
+        termsCheckBox.setOnClickListener(v -> {
+            if (termsCheckBox.isChecked()) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Terms and Conditions & Privacy Policy")
+                        .setMessage("By signing up, you agree that Lantaw Marbel Resort may collect and process your personal data (such as name, contact info, and ID) solely for booking, resort services, and security verification. Your data will be kept confidential and will not be shared with third parties without your consent.")
+                        .setPositiveButton("OK", null)
+                        .show();
+            }
+        });
 
         findViewById(R.id.loginLink).setOnClickListener(v -> navigateToLogin());
     }
@@ -170,8 +192,15 @@ public class Go_To_SignUp_Button extends AppCompatActivity {
         String birthday = birthdayInput.getText().toString().trim();
         String gender = genderSpinner.getSelectedItem().toString();
 
+        // ✅ Check if Terms are accepted
+        if (!termsCheckBox.isChecked()) {
+            Toast.makeText(this, "Please agree to the Terms and Conditions", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!validateInputs(username, firstName, lastName, email, phone, password, confirmPassword, gender, birthday))
             return;
+
 
         signUpButton.setEnabled(false);
         signUpButton.setText("Signing up...");

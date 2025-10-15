@@ -10,11 +10,11 @@
         android:text="Select Your Cottage"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#2C3E50"
+        android:textColor="#FFFFFF"
         android:gravity="center"
         android:padding="10dp"
         android:fontFamily="serif"
-        android:background="@drawable/header_background"
+        android:background="@drawable/card_gradient_green"
         android:elevation="4dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.google.firebase.messaging.FirebaseMessaging;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,10 +58,136 @@ public class Go_To_Login_Signup extends AppCompatActivity {
         loginButton.setOnClickListener(v -> attemptLogin());
         signupButton.setOnClickListener(v -> startActivity(new Intent(this, Go_To_SignUp_Button.class)));
 
+        // Forgot Password handler
+        TextView forgotPasswordText = findViewById(R.id.forgotPasswordText);
+        forgotPasswordText.setOnClickListener(v -> openForgotPasswordDialog());
+
         // Auto-login if token exists
         if (sharedPreferences.contains(KEY_TOKEN)) {
             navigateToMain();
         }
+    }
+
+    private void openForgotPasswordDialog() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_forgot_password, null);
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this).setView(view).create();
+
+        TextInputEditText emailInput = view.findViewById(R.id.emailInput);
+        MaterialButton sendButton = view.findViewById(R.id.sendButton);
+        MaterialButton cancelButton = view.findViewById(R.id.cancelButton);
+
+        sendButton.setOnClickListener(v -> {
+            String email = emailInput.getText().toString().trim();
+
+            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                emailInput.setError("Enter a valid email");
+                return;
+            }
+
+            Map<String, String> body = new HashMap<>();
+            body.put("email", email);
+
+            apiService.sendOTP(body).enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    if (response.isSuccessful() && response.body().success) {
+                        dialog.dismiss();
+                        openOTPDialog(email);
+                    } else {
+                        Toast.makeText(Go_To_Login_Signup.this, "Failed: " + response.body().message, Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    Toast.makeText(Go_To_Login_Signup.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+    private void openOTPDialog(String email) {
+        View view = getLayoutInflater().inflate(R.layout.dialog_enter_otp, null);
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this).setView(view).create();
+
+        TextInputEditText otpInput = view.findViewById(R.id.otpInput);
+        MaterialButton verifyButton = view.findViewById(R.id.verifyButton);
+
+        verifyButton.setOnClickListener(v -> {
+            String otp = otpInput.getText().toString().trim();
+
+            Map<String, String> body = new HashMap<>();
+            body.put("email", email);
+            body.put("otp", otp);
+
+            apiService.verifyOTP(body).enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    if (response.isSuccessful() && response.body().success) {
+                        dialog.dismiss();
+                        openResetPasswordDialog(email, otp);
+                    } else {
+                        Toast.makeText(Go_To_Login_Signup.this, "Invalid OTP", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    Toast.makeText(Go_To_Login_Signup.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+
+        dialog.show();
+    }
+    private void openResetPasswordDialog(String email, String otp) {
+        View view = getLayoutInflater().inflate(R.layout.dialog_reset_password, null);
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(this).setView(view).create();
+
+        TextInputEditText newPassword = view.findViewById(R.id.newPassword);
+        TextInputEditText confirmPassword = view.findViewById(R.id.confirmPassword);
+        MaterialButton resetButton = view.findViewById(R.id.resetButton);
+
+        resetButton.setOnClickListener(v -> {
+            String pass1 = newPassword.getText().toString();
+            String pass2 = confirmPassword.getText().toString();
+
+            if (pass1.isEmpty() || pass2.isEmpty()) {
+                Toast.makeText(this, "Enter both fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!pass1.equals(pass2)) {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Map<String, String> body = new HashMap<>();
+            body.put("email", email);
+            body.put("otp", otp);
+            body.put("password", pass1);
+            body.put("password_confirmation", pass2);
+
+            apiService.resetPassword(body).enqueue(new Callback<ApiResponse>() {
+                @Override
+                public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                    if (response.isSuccessful() && response.body().success) {
+                        Toast.makeText(Go_To_Login_Signup.this, "Password reset successful!", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(Go_To_Login_Signup.this, "Failed: " + response.body().message, Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ApiResponse> call, Throwable t) {
+                    Toast.makeText(Go_To_Login_Signup.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        });
+
+        dialog.show();
     }
 
     private void attemptLogin() {

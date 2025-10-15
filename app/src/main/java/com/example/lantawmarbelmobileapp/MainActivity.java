@@ -81,6 +81,30 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
 
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Expand Icon menu
+        expandIcon.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
+            popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+
+                if (id == R.id.menu_logout) {
+                    logoutUser();
+                    return true;
+                }
+
+                return false;
+            });
+
+            popupMenu.show();
+        });
+
+
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 int uid=getUserID();
@@ -138,6 +162,20 @@ inquiryButton.setOnClickListener(new View.OnClickListener() {
     }
 });
         addWelcomeNotificationIfNeeded();
+    }
+
+    // ✅ Properly placed logout method (moved OUTSIDE onCreate)
+    private void logoutUser() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+
+        Toast.makeText(this, "You have been logged out", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(MainActivity.this, Go_To_Login_Signup.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
 

@@ -127,19 +127,46 @@
         app:strokeColor="#004D40"
         app:strokeWidth="2dp" />
 
-    <!-- Guest Mode -->
-    <TextView
-        android:id="@+id/guestModeText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Continue as Guest"
-        android:textColor="#FF8C00"
-        android:textSize="18sp"
-        android:padding="8dp"
-        android:textStyle="bold"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        android:orientation="horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="8dp">
+
+        <!-- Guest Mode -->
+        <TextView
+            android:id="@+id/guestModeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Continue as Guest"
+            android:textColor="#004D40"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <!-- Forgot Password -->
+        <TextView
+            android:id="@+id/forgotPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:textColor="#004D40"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
