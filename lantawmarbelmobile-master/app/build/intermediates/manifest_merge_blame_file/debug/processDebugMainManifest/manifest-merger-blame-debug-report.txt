@@ -1,0 +1,499 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.lantawmarbelmobileapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="27"
+9        android:targetSdkVersion="35" />
+10    <!-- Internet / Network -->
+11    <uses-feature
+11-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:4:5-6:35
+12        android:name="android.hardware.camera"
+12-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:5:9-47
+13        android:required="true" />
+13-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:6:9-32
+14
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:8:5-67
+15-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:8:22-64
+16    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+16-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:9:5-79
+16-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:9:22-76
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:10:5-81
+17-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:10:22-78
+18    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+18-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:11:5-80
+18-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:11:22-77
+19    <uses-permission android:name="android.permission.CAMERA" />
+19-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:12:5-65
+19-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:12:22-62
+20    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+20-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:13:5-77
+20-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:13:22-74
+21    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+21-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:24:5-68
+21-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:24:22-65
+22    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+22-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:26:5-82
+22-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:26:22-79
+23    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+23-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:26:5-110
+23-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:26:22-107
+24    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+24-->[com.google.android.gms:play-services-measurement-api:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\0c7a356c64001c57e17a0b227db304b6\transformed\play-services-measurement-api-21.3.0\AndroidManifest.xml:25:5-79
+24-->[com.google.android.gms:play-services-measurement-api:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\0c7a356c64001c57e17a0b227db304b6\transformed\play-services-measurement-api-21.3.0\AndroidManifest.xml:25:22-76
+25
+26    <permission
+26-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
+27        android:name="com.example.lantawmarbelmobileapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+27-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
+28        android:protectionLevel="signature" />
+28-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
+29
+30    <uses-permission android:name="com.example.lantawmarbelmobileapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+30-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
+30-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+31
+32    <application
+32-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:15:5-93:19
+33        android:allowBackup="true"
+33-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:16:9-35
+34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+34-->[androidx.core:core:1.13.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ddff10a56be78e0280c3e135faa04736\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
+35        android:debuggable="true"
+36        android:extractNativeLibs="false"
+37        android:icon="@mipmap/ic_launcher"
+37-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:17:9-43
+38        android:label="@string/app_name"
+38-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:18:9-41
+39        android:roundIcon="@mipmap/ic_launcher_round"
+39-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:19:9-54
+40        android:supportsRtl="true"
+40-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:20:9-35
+41        android:testOnly="true"
+42        android:theme="@style/Theme.LantawMarbelMobileApp" >
+42-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:21:9-59
+43        <activity
+43-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:22:9-24:40
+44            android:name="com.example.lantawmarbelmobileapp.QRDetailActivity"
+44-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:23:13-45
+45            android:exported="false" />
+45-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:24:13-37
+46        <activity
+46-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:25:9-27:40
+47            android:name="com.example.lantawmarbelmobileapp.QRListActivity"
+47-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:26:13-43
+48            android:exported="false" />
+48-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:27:13-37
+49        <activity
+49-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:28:9-30:40
+50            android:name="com.example.lantawmarbelmobileapp.FeedbackListActivity"
+50-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:29:13-49
+51            android:exported="false" />
+51-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:30:13-37
+52        <activity
+52-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:31:9-33:40
+53            android:name="com.example.lantawmarbelmobileapp.FeedbackActivity"
+53-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:32:13-45
+54            android:exported="false" />
+54-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:33:13-37
+55        <activity
+55-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:34:9-36:40
+56            android:name="com.example.lantawmarbelmobileapp.NotificationActivity"
+56-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:35:13-49
+57            android:exported="false" />
+57-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:36:13-37
+58
+59        <service
+59-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:38:9-44:19
+60            android:name="com.example.lantawmarbelmobileapp.MyFirebaseMessagingService"
+60-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:39:13-55
+61            android:exported="false" >
+61-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:40:13-37
+62            <intent-filter>
+62-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:41:13-43:29
+63                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+63-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:42:17-78
+63-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:42:25-75
+64            </intent-filter>
+65        </service>
+66
+67        <activity
+67-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:46:9-48:40
+68            android:name="com.example.lantawmarbelmobileapp.QrScanActivity"
+68-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:47:13-43
+69            android:exported="false" />
+69-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:48:13-37
+70        <activity
+70-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:49:9-51:40
+71            android:name="com.example.lantawmarbelmobileapp.ChatActivity"
+71-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:50:13-41
+72            android:exported="false" />
+72-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:51:13-37
+73        <activity
+73-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:52:9-54:40
+74            android:name="com.example.lantawmarbelmobileapp.BookingDetailActivity"
+74-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:53:13-50
+75            android:exported="false" />
+75-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:54:13-37
+76        <activity
+76-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:55:9-57:40
+77            android:name="com.example.lantawmarbelmobileapp.BookingListActivity"
+77-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:56:13-48
+78            android:exported="false" />
+78-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:57:13-37
+79        <activity
+79-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:58:9-60:40
+80            android:name="com.example.lantawmarbelmobileapp.BookingActivity"
+80-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:59:13-44
+81            android:exported="false" /> <!-- Launcher Activity -->
+81-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:60:13-37
+82        <activity
+82-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:61:9-71:20
+83            android:name="com.example.lantawmarbelmobileapp.CommonMainActivity"
+83-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:62:13-47
+84            android:exported="true"
+84-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:63:13-36
+85            android:screenOrientation="portrait"
+85-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:64:13-49
+86            android:windowSoftInputMode="adjustResize" >
+86-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:65:13-55
+87            <intent-filter>
+87-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:66:13-70:29
+88                <action android:name="android.intent.action.MAIN" />
+88-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:67:17-69
+88-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:67:25-66
+89
+90                <category android:name="android.intent.category.LAUNCHER" />
+90-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:69:17-77
+90-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:69:27-74
+91            </intent-filter>
+92        </activity> <!-- Other Activities -->
+93        <activity
+93-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:72:9-74:40
+94            android:name="com.example.lantawmarbelmobileapp.Go_To_List_of_bookings"
+94-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:73:13-51
+95            android:exported="false" />
+95-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:74:13-37
+96        <activity
+96-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:75:9-77:40
+97            android:name="com.example.lantawmarbelmobileapp.Go_To_SignUp_Button"
+97-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:76:13-48
+98            android:exported="false" />
+98-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:77:13-37
+99        <activity
+99-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:78:9-80:40
+100            android:name="com.example.lantawmarbelmobileapp.Go_To_Login_Signup"
+100-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:79:13-47
+101            android:exported="false" />
+101-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:80:13-37
+102        <activity
+102-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:81:9-83:40
+103            android:name="com.example.lantawmarbelmobileapp.MainActivity"
+103-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:82:13-41
+104            android:exported="false" /> <!-- FileProvider for Camera image saving -->
+104-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:83:13-37
+105        <provider
+106            android:name="androidx.core.content.FileProvider"
+106-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:85:13-62
+107            android:authorities="com.example.lantawmarbelmobileapp.fileprovider"
+107-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:86:13-64
+108            android:exported="false"
+108-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:87:13-37
+109            android:grantUriPermissions="true" >
+109-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:88:13-47
+110            <meta-data
+110-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:89:13-91:54
+111                android:name="android.support.FILE_PROVIDER_PATHS"
+111-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:90:17-67
+112                android:resource="@xml/file_paths" />
+112-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:91:17-51
+113        </provider>
+114
+115        <service
+115-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:24:9-33:19
+116            android:name="androidx.camera.core.impl.MetadataHolderService"
+116-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:25:13-75
+117            android:enabled="false"
+117-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:26:13-36
+118            android:exported="false" >
+118-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:27:13-37
+119            <meta-data
+119-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:30:13-32:89
+120                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+120-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:31:17-103
+121                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+121-->[androidx.camera:camera-camera2:1.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\2fce4f5d84ac1a9cbe84a525fefb55f5\transformed\camera-camera2-1.3.3\AndroidManifest.xml:32:17-86
+122        </service>
+123        <service
+123-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:9:9-15:19
+124            android:name="com.google.mlkit.common.internal.MlKitComponentDiscoveryService"
+124-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:10:13-91
+125            android:directBootAware="true"
+125-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:17:13-43
+126            android:exported="false" >
+126-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:11:13-37
+127            <meta-data
+127-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:12:13-14:85
+128                android:name="com.google.firebase.components:com.google.mlkit.vision.barcode.internal.BarcodeRegistrar"
+128-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:13:17-120
+129                android:value="com.google.firebase.components.ComponentRegistrar" />
+129-->[com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\5c73dd734166afe8f34b675e5356b531\transformed\play-services-mlkit-barcode-scanning-18.3.0\AndroidManifest.xml:14:17-82
+130            <meta-data
+130-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\user\.gradle\caches\8.10.2\transforms\9ab2c558e4b4753f093b9cc7589b290f\transformed\play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:12:13-14:85
+131                android:name="com.google.firebase.components:com.google.mlkit.vision.text.internal.TextRegistrar"
+131-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\user\.gradle\caches\8.10.2\transforms\9ab2c558e4b4753f093b9cc7589b290f\transformed\play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:13:17-114
+132                android:value="com.google.firebase.components.ComponentRegistrar" />
+132-->[com.google.android.gms:play-services-mlkit-text-recognition-common:19.1.0] C:\Users\user\.gradle\caches\8.10.2\transforms\9ab2c558e4b4753f093b9cc7589b290f\transformed\play-services-mlkit-text-recognition-common-19.1.0\AndroidManifest.xml:14:17-82
+133            <meta-data
+133-->[com.google.mlkit:vision-common:17.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\4d144edd2491d7414e552009e2965935\transformed\vision-common-17.3.0\AndroidManifest.xml:12:13-14:85
+134                android:name="com.google.firebase.components:com.google.mlkit.vision.common.internal.VisionCommonRegistrar"
+134-->[com.google.mlkit:vision-common:17.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\4d144edd2491d7414e552009e2965935\transformed\vision-common-17.3.0\AndroidManifest.xml:13:17-124
+135                android:value="com.google.firebase.components.ComponentRegistrar" />
+135-->[com.google.mlkit:vision-common:17.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\4d144edd2491d7414e552009e2965935\transformed\vision-common-17.3.0\AndroidManifest.xml:14:17-82
+136            <meta-data
+136-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:20:13-22:85
+137                android:name="com.google.firebase.components:com.google.mlkit.common.internal.CommonComponentRegistrar"
+137-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:21:17-120
+138                android:value="com.google.firebase.components.ComponentRegistrar" />
+138-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:22:17-82
+139        </service>
+140
+141        <provider
+141-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:9:9-13:38
+142            android:name="com.google.mlkit.common.internal.MlKitInitProvider"
+142-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:10:13-78
+143            android:authorities="com.example.lantawmarbelmobileapp.mlkitinitprovider"
+143-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:11:13-69
+144            android:exported="false"
+144-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:12:13-37
+145            android:initOrder="99" />
+145-->[com.google.mlkit:common:18.11.0] C:\Users\user\.gradle\caches\8.10.2\transforms\58fbac127383f6431cefc96ee9c341b0\transformed\common-18.11.0\AndroidManifest.xml:13:13-35
+146
+147        <receiver
+147-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:29:9-36:20
+148            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+148-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:30:13-78
+149            android:exported="true"
+149-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:31:13-36
+150            android:permission="com.google.android.c2dm.permission.SEND" >
+150-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:32:13-73
+151            <intent-filter>
+151-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:33:13-35:29
+152                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+152-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:34:17-81
+152-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:34:25-78
+153            </intent-filter>
+154        </receiver>
+155        <!--
+156             FirebaseMessagingService performs security checks at runtime,
+157             but set to not exported to explicitly avoid allowing another app to call it.
+158        -->
+159        <service
+159-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:42:9-49:19
+160            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+160-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:43:13-82
+161            android:directBootAware="true"
+161-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:44:13-43
+162            android:exported="false" >
+162-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:45:13-37
+163            <intent-filter android:priority="-500" >
+163-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:41:13-43:29
+164                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+164-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:42:17-78
+164-->C:\lantawmarbelmobileapp\lantawmarbelmobile-master\app\src\main\AndroidManifest.xml:42:25-75
+165            </intent-filter>
+166        </service>
+167        <service
+167-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:50:9-56:19
+168            android:name="com.google.firebase.components.ComponentDiscoveryService"
+168-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:51:13-84
+169            android:directBootAware="true"
+169-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:34:13-43
+170            android:exported="false" >
+170-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:52:13-37
+171            <meta-data
+171-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:53:13-55:85
+172                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+172-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:54:17-119
+173                android:value="com.google.firebase.components.ComponentRegistrar" />
+173-->[com.google.firebase:firebase-messaging:23.2.1] C:\Users\user\.gradle\caches\8.10.2\transforms\b71f2ab0be833764e688435591672a6e\transformed\firebase-messaging-23.2.1\AndroidManifest.xml:55:17-82
+174            <meta-data
+174-->[com.google.android.gms:play-services-measurement-api:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\0c7a356c64001c57e17a0b227db304b6\transformed\play-services-measurement-api-21.3.0\AndroidManifest.xml:31:13-33:85
+175                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+175-->[com.google.android.gms:play-services-measurement-api:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\0c7a356c64001c57e17a0b227db304b6\transformed\play-services-measurement-api-21.3.0\AndroidManifest.xml:32:17-139
+176                android:value="com.google.firebase.components.ComponentRegistrar" />
+176-->[com.google.android.gms:play-services-measurement-api:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\0c7a356c64001c57e17a0b227db304b6\transformed\play-services-measurement-api-21.3.0\AndroidManifest.xml:33:17-82
+177            <meta-data
+177-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\user\.gradle\caches\8.10.2\transforms\f777c684ec5bb8636b2bbcbfc369e5ca\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:27:13-29:85
+178                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+178-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\user\.gradle\caches\8.10.2\transforms\f777c684ec5bb8636b2bbcbfc369e5ca\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:28:17-115
+179                android:value="com.google.firebase.components.ComponentRegistrar" />
+179-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\user\.gradle\caches\8.10.2\transforms\f777c684ec5bb8636b2bbcbfc369e5ca\transformed\firebase-datatransport-18.1.7\AndroidManifest.xml:29:17-82
+180            <meta-data
+180-->[com.google.firebase:firebase-installations:17.1.4] C:\Users\user\.gradle\caches\8.10.2\transforms\ac22be207b54d1ec724a1cfdb7bf7fa6\transformed\firebase-installations-17.1.4\AndroidManifest.xml:15:13-17:85
+181                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+181-->[com.google.firebase:firebase-installations:17.1.4] C:\Users\user\.gradle\caches\8.10.2\transforms\ac22be207b54d1ec724a1cfdb7bf7fa6\transformed\firebase-installations-17.1.4\AndroidManifest.xml:16:17-127
+182                android:value="com.google.firebase.components.ComponentRegistrar" />
+182-->[com.google.firebase:firebase-installations:17.1.4] C:\Users\user\.gradle\caches\8.10.2\transforms\ac22be207b54d1ec724a1cfdb7bf7fa6\transformed\firebase-installations-17.1.4\AndroidManifest.xml:17:17-82
+183        </service>
+184
+185        <activity
+185-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ca32dd813294919638ec9c797f5341c6\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:9-173
+186            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+186-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ca32dd813294919638ec9c797f5341c6\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:19-85
+187            android:exported="false"
+187-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ca32dd813294919638ec9c797f5341c6\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:146-170
+188            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+188-->[com.google.android.gms:play-services-base:18.5.0] C:\Users\user\.gradle\caches\8.10.2\transforms\ca32dd813294919638ec9c797f5341c6\transformed\play-services-base-18.5.0\AndroidManifest.xml:5:86-145
+189
+190        <receiver
+190-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:29:9-33:20
+191            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+191-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:30:13-85
+192            android:enabled="true"
+192-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:31:13-35
+193            android:exported="false" >
+193-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:32:13-37
+194        </receiver>
+195
+196        <service
+196-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:35:9-38:40
+197            android:name="com.google.android.gms.measurement.AppMeasurementService"
+197-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:36:13-84
+198            android:enabled="true"
+198-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:37:13-35
+199            android:exported="false" />
+199-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:38:13-37
+200        <service
+200-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:39:9-43:72
+201            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+201-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:40:13-87
+202            android:enabled="true"
+202-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:41:13-35
+203            android:exported="false"
+203-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:42:13-37
+204            android:permission="android.permission.BIND_JOB_SERVICE" />
+204-->[com.google.android.gms:play-services-measurement:21.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\174abe90f3a795e2d81251b613868cf1\transformed\play-services-measurement-21.3.0\AndroidManifest.xml:43:13-69
+205
+206        <provider
+206-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:25:9-30:39
+207            android:name="com.google.firebase.provider.FirebaseInitProvider"
+207-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:26:13-77
+208            android:authorities="com.example.lantawmarbelmobileapp.firebaseinitprovider"
+208-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:27:13-72
+209            android:directBootAware="true"
+209-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:28:13-43
+210            android:exported="false"
+210-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:29:13-37
+211            android:initOrder="100" />
+211-->[com.google.firebase:firebase-common:20.3.3] C:\Users\user\.gradle\caches\8.10.2\transforms\4cf93915a3dc4d69bd4485dcc6ca9762\transformed\firebase-common-20.3.3\AndroidManifest.xml:30:13-36
+212
+213        <meta-data
+213-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\fbc7a54e5680c1bd39e38dc1f2d78bd2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+214            android:name="com.google.android.gms.version"
+214-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\fbc7a54e5680c1bd39e38dc1f2d78bd2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+215            android:value="@integer/google_play_services_version" />
+215-->[com.google.android.gms:play-services-basement:18.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\fbc7a54e5680c1bd39e38dc1f2d78bd2\transformed\play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+216
+217        <provider
+217-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+218            android:name="androidx.startup.InitializationProvider"
+218-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+219            android:authorities="com.example.lantawmarbelmobileapp.androidx-startup"
+219-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+220            android:exported="false" >
+220-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+221            <meta-data
+221-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+222                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+222-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+223                android:value="androidx.startup" />
+223-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\8.10.2\transforms\596238d4183ffd8cd8e80e70e1414079\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+224            <meta-data
+224-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\8.10.2\transforms\977f97313c89df01c474abdb17cae46e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+225                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+225-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\8.10.2\transforms\977f97313c89df01c474abdb17cae46e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+226                android:value="androidx.startup" />
+226-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\8.10.2\transforms\977f97313c89df01c474abdb17cae46e\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+227            <meta-data
+227-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+228                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+228-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+229                android:value="androidx.startup" />
+229-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+230        </provider>
+231
+232        <receiver
+232-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+233            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+233-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+234            android:directBootAware="false"
+234-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+235            android:enabled="true"
+235-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+236            android:exported="true"
+236-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+237            android:permission="android.permission.DUMP" >
+237-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+238            <intent-filter>
+238-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+239                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+239-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+239-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+240            </intent-filter>
+241            <intent-filter>
+241-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+242                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+242-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+242-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+243            </intent-filter>
+244            <intent-filter>
+244-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+245                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+245-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+245-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+246            </intent-filter>
+247            <intent-filter>
+247-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+248                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+248-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+248-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\user\.gradle\caches\8.10.2\transforms\75eb42b2ac9c1b659e99e018795ab301\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+249            </intent-filter>
+250        </receiver>
+251
+252        <service
+252-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:28:9-34:19
+253            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+253-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:29:13-103
+254            android:exported="false" >
+254-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:30:13-37
+255            <meta-data
+255-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:31:13-33:39
+256                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+256-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:32:17-94
+257                android:value="cct" />
+257-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\64ce2348716a553bcb3494bba738342a\transformed\transport-backend-cct-3.1.8\AndroidManifest.xml:33:17-36
+258        </service>
+259        <service
+259-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:26:9-30:19
+260            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+260-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:27:13-117
+261            android:exported="false"
+261-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:28:13-37
+262            android:permission="android.permission.BIND_JOB_SERVICE" >
+262-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:29:13-69
+263        </service>
+264
+265        <receiver
+265-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:32:9-34:40
+266            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+266-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:33:13-132
+267            android:exported="false" />
+267-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\user\.gradle\caches\8.10.2\transforms\644da8bb0b0b91f69319ed398fdbf1c7\transformed\transport-runtime-3.1.8\AndroidManifest.xml:34:13-37
+268    </application>
+269
+270</manifest>

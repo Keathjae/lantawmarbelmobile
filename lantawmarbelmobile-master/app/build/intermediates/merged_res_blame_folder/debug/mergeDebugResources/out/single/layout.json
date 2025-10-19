@@ -1,0 +1,178 @@
+[
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_rooms.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_rooms.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_feedback.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_feedback.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_qrdetail.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_qrdetail.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_cottage.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_cottage.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_guest_message.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_guest_message.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/dialog_reset_password.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/dialog_reset_password.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_booking.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_booking.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_qrlist.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_qrlist.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_feedback.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_feedback.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/dialog_forgot_password.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/dialog_forgot_password.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_booking_amenities.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_booking_amenities.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_book_room.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_book_room.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_go_to_list_of_bookings.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_go_to_list_of_bookings.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_booking_detail.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_booking_detail.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_cottage.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_cottage.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_feedback_list.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_feedback_list.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_book_cottage.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_book_cottage.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_book_menu.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_book_menu.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_book_cottage.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_book_cottage.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_notification.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_notification.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_menu.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_menu.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_amenity.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_amenity.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_menu.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_menu.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_booking_room.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_booking_room.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_payment.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_payment.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_booking_date.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_booking_date.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_book_menu.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_book_menu.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_qr_scan.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_qr_scan.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_welcome.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_welcome.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_chat.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_chat.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_booking.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_booking.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/dialog_enter_otp.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/dialog_enter_otp.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_booking_list.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_booking_list.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_multi_date.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_multi_date.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_book_amenities.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_book_amenities.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_room.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_room.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_amenity.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_amenity.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_go_to_login_signup.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_go_to_login_signup.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_go_to_signup_button.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_go_to_signup_button.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/fragment_single_date.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/fragment_single_date.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_notification.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_notification.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/item_staff_message.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/item_staff_message.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_main.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.lantawmarbelmobileapp-mergeDebugResources-48:/layout/activity_common_main.xml",
+        "source": "com.example.lantawmarbelmobileapp-main-51:/layout/activity_common_main.xml"
+    }
+]

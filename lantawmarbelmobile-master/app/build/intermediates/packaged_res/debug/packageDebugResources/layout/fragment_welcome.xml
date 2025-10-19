@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeFragment"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- Resort Logo -->
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="180dp"
+            android:src="@drawable/lantaw_marbel_logo_trans"
+            android:contentDescription="Lantaw Marbel Resort Logo"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true" />
+
+        <!-- Welcome Title -->
+        <TextView
+            android:id="@+id/tvWelcomeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Lantaw Marbel Resort!"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#08900D"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Divider Line -->
+        <View
+            android:layout_width="80dp"
+            android:layout_height="4dp"
+            android:background="#08900D"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Resort Description -->
+        <TextView
+            android:id="@+id/tvWelcomeBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nestled in the heart of Koronadal City, South Cotabato, Lantaw Marbel Resort is your perfect destination for peace, relaxation, and adventure. Our resort offers an ideal getaway from the rush of everyday life. Enjoy our cozy rooms, scenic cottages, infinity pool, and mouthwatering local delicacies — each crafted to make your stay truly memorable."
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#444"
+            android:gravity="center"
+            android:justificationMode="inter_word"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Resort Gallery -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/infinity_pool"
+                android:scaleType="centerCrop"
+                android:contentDescription="Resort Pool"
+                android:background="@drawable/image_border"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:src="@drawable/cottage_view"
+                android:scaleType="centerCrop"
+                android:contentDescription="Cottage View"
+                android:background="@drawable/image_border"/>
+        </LinearLayout>
+
+        <!-- Feature Highlights -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✨ Experience Nature and Comfort ✨"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#007F69"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="At Lantaw Marbel, every corner tells a story of culture, relaxation, and serenity. Discover the beauty of Lantaw Marbel Resort, unwind in our peaceful environment, and create lasting memories with friends and family. Whether you’re visiting for a day or staying longer — we promise an experience that blends nature’s calm with genuine Filipino hospitality."
+            android:textSize="15sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#555"
+            android:textAlignment="viewStart"
+            android:justificationMode="inter_word"
+            android:layout_marginBottom="25dp" />
+
+        <!-- Amenities List -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌿 Resort Highlights:"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#08900D"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• Infinity Pool with Mountain View\n• Air-conditioned Rooms and Native Cottages\n• Function Hall for Events\n• Restaurant serving local and international dishes\n• Picnic and Grilling Area\n"
+            android:textSize="15sp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="#444"
+            android:textAlignment="viewStart"
+            android:justificationMode="inter_word"
+            android:layout_marginBottom="25dp" />
+
+        <!-- Call to Action / FB Link -->
+        <TextView
+            android:id="@+id/tvFbLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click to Visit our Facebook Page"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#08900D"
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp" />
+
+    </LinearLayout>
+</ScrollView>

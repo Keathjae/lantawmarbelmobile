@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:src="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_reservation"
+        android:src="@drawable/ic_calendar"
+        android:title="Reservation" />
+
+    <item
+        android:id="@+id/nav_inquiry"
+        android:src="@drawable/ic_chat"
+        android:title="Inquiry" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:src="@drawable/ic_settings"
+        android:title="Settings" />
+
+</menu>

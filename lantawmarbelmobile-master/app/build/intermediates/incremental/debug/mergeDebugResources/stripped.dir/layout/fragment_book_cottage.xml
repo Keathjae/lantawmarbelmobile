@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- Header -->
+    <TextView
+        android:id="@+id/cottageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Your Cottage"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:padding="10dp"
+        android:fontFamily="serif"
+        android:background="@drawable/card_gradient_green"
+        android:elevation="4dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cottagesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
