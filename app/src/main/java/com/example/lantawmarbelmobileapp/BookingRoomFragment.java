@@ -82,7 +82,7 @@ public class BookingRoomFragment extends Fragment {
             adapter.setSelectedRoomIds(selectedIds);
         });
 
-        fetchRooms();
+        fetchRooms(date);
         return view;
     }
 
@@ -96,23 +96,25 @@ public class BookingRoomFragment extends Fragment {
         return result;
     }
 
-    private void fetchRooms() {
+    private void fetchRooms(String date) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        apiService.getRooms().enqueue(new Callback<List<Room>>() {
+        apiService.getAvailableRooms(date).enqueue(new Callback<List<Room>>() {
             @Override
             public void onResponse(Call<List<Room>> call, Response<List<Room>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Room> newRooms = response.body();
 
-                    // re-apply selection after loading
+                    // ✅ Re-apply room selection after loading
                     BookingDTO dto = viewModel.getBooking().getValue();
                     if (dto != null && dto.roomBookings != null) {
                         Set<Integer> selectedIds = getSelectedRoomIdsForDate(dto.roomBookings, date);
                         adapter.setSelectedRoomIds(selectedIds);
                     }
 
-                    // ✅ Use DiffUtil for smooth updates
+                    // ✅ Smooth updates using DiffUtil
                     adapter.updateRooms(newRooms);
+                } else {
+                    Toast.makeText(getContext(), "No available rooms for this date", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -122,4 +124,5 @@ public class BookingRoomFragment extends Fragment {
             }
         });
     }
+
 }
