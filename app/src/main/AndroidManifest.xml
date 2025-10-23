@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LantawMarbelMobileApp">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".QRDetailActivity"
             android:exported="false" />
         <activity
